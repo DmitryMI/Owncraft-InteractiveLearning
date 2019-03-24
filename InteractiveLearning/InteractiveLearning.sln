@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveLearning", "InteractiveLearning.csproj", "{720790A8-6A5D-4DA2-88E0-5CE8FA140317}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{720790A8-6A5D-4DA2-88E0-5CE8FA140317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720790A8-6A5D-4DA2-88E0-5CE8FA140317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720790A8-6A5D-4DA2-88E0-5CE8FA140317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720790A8-6A5D-4DA2-88E0-5CE8FA140317}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ADE74FFE-2F8C-4478-A1CA-AAFD24F803A0}
+	EndGlobalSection
+EndGlobal
