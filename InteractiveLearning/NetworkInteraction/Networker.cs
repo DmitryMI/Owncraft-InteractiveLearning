@@ -1,4 +1,8 @@
-﻿using InteractiveLearning.Core;
+﻿using System.Net;
+using System.Net.Sockets;
+using System.Windows.Forms;
+using InteractiveLearning.Core;
+using NetworkShared;
 
 namespace InteractiveLearning.NetworkInteraction
 {
@@ -29,9 +33,28 @@ namespace InteractiveLearning.NetworkInteraction
             
         }
 
+        // TODO Listen for direct packages
+
+        private void FindServer()
+        {
+            UdpClient udpClient = new UdpClient();
+
+            IPAddress multicastIp = IPAddress.Parse("239.0.0.222");
+            udpClient.JoinMulticastGroup(multicastIp);
+            IPEndPoint remoteEndPoint = new IPEndPoint(multicastIp, NetCommand.ClientPort);
+
+            NetworkShared.NetCommand cmd = new NetCommand("seek-server", "TEST");
+
+            byte[] data = cmd.GetBytes();
+
+            udpClient.Send(data, data.Length, remoteEndPoint);
+        }
+
 
         public void RequestDataFromServer(TaskListReadingCallback callback)
         {
+            FindServer();
+
             _readingCallback = callback;
             // TODO Retreiving task list from tutor's server
 

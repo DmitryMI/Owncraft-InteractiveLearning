@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="NetworkShared\NetworkShared.csproj">
+      <Project>{3f17d69d-a200-4507-b807-e449773e1854}</Project>
+      <Name>NetworkShared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
