@@ -1,4 +1,4 @@
-﻿namespace InteractiveLearning
+﻿namespace InteractiveLearning.UI
 {
     partial class TestSelectionForm
     {
@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.CurrentCategoryLabel = new System.Windows.Forms.Label();
             this.refreshButton = new System.Windows.Forms.Button();
             this.categoryCollectionList = new System.Windows.Forms.ListView();
             this.backButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // CurrentCategoryLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(81, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Available categories:";
+            this.CurrentCategoryLabel.AutoSize = true;
+            this.CurrentCategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CurrentCategoryLabel.Location = new System.Drawing.Point(81, 9);
+            this.CurrentCategoryLabel.Name = "CurrentCategoryLabel";
+            this.CurrentCategoryLabel.Size = new System.Drawing.Size(154, 20);
+            this.CurrentCategoryLabel.TabIndex = 0;
+            this.CurrentCategoryLabel.Text = "Available categories:";
             // 
             // refreshButton
             // 
@@ -87,7 +87,7 @@
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.categoryCollectionList);
             this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.CurrentCategoryLabel);
             this.Name = "TestSelectionForm";
             this.Text = "TestSelectionForm";
             this.Load += new System.EventHandler(this.TestSelectionForm_Load);
@@ -98,7 +98,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label CurrentCategoryLabel;
         private System.Windows.Forms.Button refreshButton;
         private System.Windows.Forms.ListView categoryCollectionList;
         private System.Windows.Forms.Button backButton;

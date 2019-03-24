@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveLearning", "InteractiveLearning.csproj", "{720790A8-6A5D-4DA2-88E0-5CE8FA140317}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractiveLearningTutor", "..\InteractiveLearningTutor\InteractiveLearningTutor.csproj", "{639B4044-07C8-4E7B-8AB7-F1C07BDDF06F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{720790A8-6A5D-4DA2-88E0-5CE8FA140317}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{720790A8-6A5D-4DA2-88E0-5CE8FA140317}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{720790A8-6A5D-4DA2-88E0-5CE8FA140317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639B4044-07C8-4E7B-8AB7-F1C07BDDF06F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639B4044-07C8-4E7B-8AB7-F1C07BDDF06F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639B4044-07C8-4E7B-8AB7-F1C07BDDF06F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639B4044-07C8-4E7B-8AB7-F1C07BDDF06F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

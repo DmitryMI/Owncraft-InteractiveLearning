@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using InteractiveLearning.Core;
 using InteractiveLearning.NetworkInteraction;
-using InteractiveLearning.UI;
 
-namespace InteractiveLearning
+namespace InteractiveLearning.UI
 {
     public partial class TestSelectionForm : Form
     {
@@ -24,21 +16,26 @@ namespace InteractiveLearning
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            Refresh();
+            RefreshList();
         }
 
-        private void Refresh()
+        private void RefreshList()
         {
-            NetworkInteraction.Networker networker = Networker.GetInstance();
-
-            _currentCategory = networker.ReadDataFromServer();
-
-            DisplayCurrentCategory();
+            Networker.GetInstance().RequestDataFromServer(OnNetworkerReadingFinish);
         }
 
         private void DisplayCurrentCategory()
         {
             categoryCollectionList.Clear();
+
+            if (_currentCategory.ParentCategory == null)
+            {
+                CurrentCategoryLabel.Text = "Available categories:";
+            }
+            else
+            {
+                CurrentCategoryLabel.Text = _currentCategory.Name + ":";
+            }
 
             foreach (BaseElement element in _currentCategory)
             {
@@ -60,7 +57,7 @@ namespace InteractiveLearning
 
         private void TestSelectionForm_Load(object sender, EventArgs e)
         {
-            Refresh();
+            RefreshList();
         }
 
         private void categoryCollectionList_ItemActivate(object sender, EventArgs e)
@@ -96,6 +93,13 @@ namespace InteractiveLearning
                 _currentCategory = _currentCategory.ParentCategory;
                 DisplayCurrentCategory();
             }
+        }
+
+        private void OnNetworkerReadingFinish(Category root)
+        {
+            _currentCategory = root;
+
+            DisplayCurrentCategory();
         }
     }
 }

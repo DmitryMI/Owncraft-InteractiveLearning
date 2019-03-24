@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using InteractiveLearning.UI;
 
-namespace InteractiveLearning
+namespace InteractiveLearningTutor
 {
     static class Program
     {
@@ -17,7 +16,7 @@ namespace InteractiveLearning
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestSelectionForm());
+            Application.Run(new MainForm());
         }
     }
 }

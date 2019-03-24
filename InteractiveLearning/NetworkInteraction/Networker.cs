@@ -17,20 +17,25 @@ namespace InteractiveLearning.NetworkInteraction
         }
 
         //-------------------------------------
-#endregion
+        #endregion
 
-        
+
+        public delegate void TaskListReadingCallback(Category root);
+
+        private TaskListReadingCallback _readingCallback;
 
         private Networker()
         {
             
         }
 
-        public Category ReadDataFromServer()
+
+        public void RequestDataFromServer(TaskListReadingCallback callback)
         {
+            _readingCallback = callback;
             // TODO Retreiving task list from tutor's server
 
-            // Demo placeholder
+            // Placeholder
             Category rootCategory = new Category();
             rootCategory.Name = "ROOT";
             rootCategory.Description = "Root category should not be displayed to user";
@@ -39,6 +44,18 @@ namespace InteractiveLearning.NetworkInteraction
             // Integrals demo
             integralsSubCat.Name = "Integrals";
             integralsSubCat.Description = "Various exercises related to integral equations";
+            LearningTask taskInt1 = new LearningTask
+            {
+                Name = "Task 1",
+                TaskText = "Do smth"
+            };
+            integralsSubCat.Add(taskInt1);
+            LearningTask taskInt2 = new LearningTask
+            {
+                Name = "Task 2",
+                TaskText = "Do smth"
+            };
+            integralsSubCat.Add(taskInt2);
             rootCategory.Add(integralsSubCat);
 
             // Quadratic equations demo
@@ -53,9 +70,8 @@ namespace InteractiveLearning.NetworkInteraction
             derivativesSubCat.Description = "Some exercises about derivatives";
             rootCategory.Add(derivativesSubCat);
 
-            return rootCategory;
+            _readingCallback(rootCategory);
         }
-
         
     }
 }
