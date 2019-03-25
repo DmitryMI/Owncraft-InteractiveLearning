@@ -10,75 +10,38 @@ namespace Test
 {
     class Program
     {
+        static OwcQueue<int> _queue = new OwcQueue<int>();
+
         static void Main(string[] args)
         {
-            OwcQueue<int> queue = new OwcQueue<int>();
+            Thread t  = new Thread(ThreadAdded);
+            t.Start();
 
-            // Simple testing
-            queue.Push(1);
-            queue.Push(2);
-            queue.Push(3);
+            bool popped = false;
 
-            Console.WriteLine(queue.Pop()); // 1
-            Console.WriteLine(queue.Pop()); // 2
-            Console.WriteLine(queue.Pop()); // 3
-
-            queue.Push(4);
-            queue.Push(5);
-            queue.Push(6);
-            queue.Push(7);
-
-            Console.WriteLine(queue.Pop()); // 4
-            Console.WriteLine(queue.Pop()); // 5
-            Console.WriteLine(queue.Pop()); // 6
-
-            queue.Push(8);
-
-            Console.WriteLine(queue.Pop()); // 7
-            Console.WriteLine(queue.Pop()); // 8
-
-            Console.WriteLine("Queue count: " + queue.Count);
-
-            // Empty error
-            try
+            while (!popped)
             {
-                Console.WriteLine(queue.Pop()); // ERROR
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error");
-            }
-
-            Console.WriteLine("==============\n");
-
-            try
-            {
-                // Full error
-                for (int i = 0; i < OwcQueue<int>.BufferSize + 1; i++)
+                lock (_queue)
                 {
-                    Console.WriteLine("Pushing: " + i);
-                    queue.Push(i);
+                    if (!_queue.IsEmpty())
+                    {
+                        Console.WriteLine(_queue.Pop());
+                        popped = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Queue empty!");
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-
-            try
-            {
-                for (int i = 0; i < OwcQueue<int>.BufferSize; i++)
-                {
-                    int pop = queue.Pop();
-                    Console.WriteLine(pop);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error");
             }
 
             Console.ReadKey();
+        }
+
+        static void ThreadAdded()
+        {
+            lock(_queue)
+                _queue.Push(9999);
         }
     }
 }
