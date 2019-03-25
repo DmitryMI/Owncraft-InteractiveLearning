@@ -31,7 +31,7 @@ namespace IntLearnShared.Networking
         private static string RemoveEofs(string str)
         {
             int i = 0;
-            while (str[i] != '\0' && i < str.Length)
+            while (i < str.Length && str[i] != '\0')
             {
                 i++;
             }
