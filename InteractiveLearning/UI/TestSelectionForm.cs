@@ -39,14 +39,6 @@ namespace InteractiveLearning.UI
 
             foreach (BaseElement element in _currentCategory)
             {
-                /*Label nameLabel = new Label();
-                nameLabel.Text = element.Name;
-                Label descriptionLabel = new Label();
-                descriptionLabel.Text = element.Description;
-                PictureBox pictureBox = new PictureBox();
-                pictureBox.SizeMode = PictureBoxSizeMode.AutoSize;
-                pictureBox.Image = element.Thumbnail;*/
-                
                 ElementListItem item = new ElementListItem(element);
                 item.Text = element.Name;
                 item.ToolTipText = element.Description;
@@ -79,10 +71,7 @@ namespace InteractiveLearning.UI
             else if (clickedElement is LearningTask)
             {
                 LearningTask task = (LearningTask) clickedElement;
-                // TODO Process task selection
 
-                // Placeholder
-                //MessageBox.Show("You selected task: " + task.Name);
                 Hide();
                 new LearningTaskDisplay(task).ShowDialog();
                 Show();
