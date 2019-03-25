@@ -28,7 +28,7 @@ namespace IntLearnShared.Networking
         public const string MulticastGroup = "224.5.6.7";
         public const int NetPackageMaxLength = 1024;
 
-        public static int ClientPort = 2222;
+        public static int ClientPort = 25565;
 
         public delegate void NetworkCallback(NetCommand command, IPAddress sender);
 
@@ -53,43 +53,30 @@ namespace IntLearnShared.Networking
 
         public void SendCommand(NetCommand command, IPAddress destination)
         {
-            /*UdpClient udpClient = new UdpClient();
+            // WORKS!
 
-            IPEndPoint remoteEndPoint = new IPEndPoint(destination, ServerPort);
+            UdpClient udpclient = new UdpClient();
+
+            IPEndPoint remoteep = new IPEndPoint(destination, ClientPort);
 
             byte[] data = command.GetBytes();
 
-            udpClient.Send(data, data.Length, remoteEndPoint);
-
-            udpClient.Close();*/
-
-            Socket s = new Socket(AddressFamily.InterNetwork,
-                SocketType.Dgram, ProtocolType.Udp);
-
-            IPAddress ip = IPAddress.Parse(MulticastGroup);
+            udpclient.Send(data, data.Length, remoteep);
         }
 
         public void SendCommandMulticast(NetCommand command)
         {
-            Socket s = new Socket(AddressFamily.InterNetwork,
-                SocketType.Dgram, ProtocolType.Udp);
+            // Not actually multicast, lol. =(
 
-            IPAddress ip = IPAddress.Parse(MulticastGroup);
-
-            s.SetSocketOption(SocketOptionLevel.IP,
-                SocketOptionName.AddMembership, new MulticastOption(ip));
-
-            s.SetSocketOption(SocketOptionLevel.IP,
-                SocketOptionName.MulticastTimeToLive, 2);
-
-            IPEndPoint ipep = new IPEndPoint(ip, ClientPort);
-            s.Connect(ipep);
-
-            byte[] data = command.GetBytes();
-
-            s.Send(data, data.Length, SocketFlags.None);
-
-            s.Close();
+            // Get all subnet's IPs and send one package to all of them.
+            IPAddress localIp = GetSelfIp();
+            string strIp = localIp.ToString();
+            string subnetIp = strIp.Substring(0, strIp.LastIndexOf('.') + 1);
+            for (int i = 0; i < 255; i++)
+            {
+                string clientIp = subnetIp + i.ToString();
+                SendCommand(command, IPAddress.Parse(clientIp));
+            }
         }
 
         private NetworkHelper()

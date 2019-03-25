@@ -47,6 +47,7 @@ namespace InteractiveLearning.NetworkInteraction
         private void FindServer()
         {
             NetworkHelper.GetInstance().SendCommandMulticast(NetCommand.SeekServerPreset);
+            //NetworkHelper.GetInstance().SendCommand(NetCommand.SeekServerPreset, IPAddress.Parse("192.168.1.1"));
         }
 
         // Пример создания задачи
