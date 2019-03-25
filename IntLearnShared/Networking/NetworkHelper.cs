@@ -29,13 +29,13 @@ namespace IntLearnShared.Networking
 
         private Thread _listenerThread;
 
-        private Queue<NetPackage> _incomingQueue = new Queue<NetPackage>();
+        private OwcQueue<NetPackage> _incomingQueue = new OwcQueue<NetPackage>();
 
         public NetPackage PopPackage()
         {
             lock (_incomingQueue)
             {
-                return _incomingQueue.Dequeue();
+                return _incomingQueue.Pop();
             }
         }
 
@@ -127,7 +127,7 @@ namespace IntLearnShared.Networking
                     IPAddress sender = remoteIpEndPoint.Address;
                     lock (_incomingQueue)
                     {
-                        _incomingQueue.Enqueue(new NetPackage(){NetCommand = cmd, Sender = sender});
+                        _incomingQueue.Push(new NetPackage(){NetCommand = cmd, Sender = sender});
                     }
                     
                 }
