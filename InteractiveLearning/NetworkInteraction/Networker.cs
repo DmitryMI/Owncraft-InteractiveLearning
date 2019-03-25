@@ -50,7 +50,7 @@ namespace InteractiveLearning.NetworkInteraction
             udpClient.Send(data, data.Length, remoteEndPoint);
         }
 
-
+        // Пример создания задачи
         public void RequestDataFromServer(TaskListReadingCallback callback)
         {
             FindServer();
@@ -58,59 +58,34 @@ namespace InteractiveLearning.NetworkInteraction
             _readingCallback = callback;
             // TODO Retreiving task list from tutor's server
 
+            // 1) Создаём объект класса категория, заполняем его поля name и description
             // Placeholder
             Category rootCategory = new Category();
             rootCategory.Name = "ROOT";
             rootCategory.Description = "Root category should not be displayed to user";
-            Category integralsSubCat = new Category();
 
+            // 2) Создаем еще одну категорию (будущую подкатегорию), аналогично
+            // NAHUY CATEGORY
+            Category nahuy = new Category();
+            nahuy.Name = "Nahuy";
+            nahuy.Description = "Nahuy opisanie";
             
-            
-            // Integrals demo
-            integralsSubCat.Name = "Integrals";
-            integralsSubCat.Description = "Various exercises related to integral equations";
+            // 3) Создаём задачу - объект класса learningTask. Заполняем его поля, создаем
+            // в нем нужные методы. Каждая задача должна быть описана таким уникальным классом.
+            // POHUY TASK
+            LearningTask pohuy = new LearningTask();
+            pohuy.Name = "Pohuy";
+            pohuy.Description = "Pohuy na opisaniye";
+            pohuy.TaskText = "Какой-то текст задачи с двумя звёздочками";
+            pohuy.Picture = null;
 
-            // Intergrals sub demo. Определенные кратные
-            Category sub1themeInt = new Category();
-            sub1themeInt.Name = "Определенные кратные интегралы";
-            sub1themeInt.Description = "Test descr";
-            integralsSubCat.Add(sub1themeInt);
+            // Связываем задачу (объект learningTask) с категорией. В категории лежит данная задача.
+            nahuy.Add(pohuy);
 
-            // Intergrals sub demo. Определенные некратные
-            Category sub2themeInt = new Category();
-            sub2themeInt.Name = "Определенные некратные кратные интегралы";
-            sub2themeInt.Description = "Test descr 2";
-            integralsSubCat.Add(sub2themeInt);
+            // Связываем категории. Nahuy лежит В rootCategory.
+            rootCategory.Add(nahuy);
 
-
-
-            LearningTask taskInt1 = new LearningTask
-            {
-                Name = "Task 1. Определенный некратный",
-                TaskText = "Do smth"
-            };
-            sub2themeInt.Add(taskInt1);
-            LearningTask taskInt2 = new LearningTask
-            {
-                Name = "Task 2. Опреденный кратный",
-                TaskText = "Do smth"
-            };
-            sub1themeInt.Add(taskInt2);
-
-            rootCategory.Add(integralsSubCat);
-
-            // Quadratic equations demo
-            Category qeqSubCat = new Category();
-            qeqSubCat.Name = "Quadratic equations";
-            qeqSubCat.Description = "Quadratic equations resolving";
-            rootCategory.Add(qeqSubCat);
-
-            // Derivatives demo
-            Category derivativesSubCat = new Category();
-            derivativesSubCat.Name = "Derivatives";
-            derivativesSubCat.Description = "Some exercises about derivatives";
-            rootCategory.Add(derivativesSubCat);
-
+            // DO NOT REMOVE CALLBACK INVOKATION!
             _readingCallback(rootCategory);
         }
         
