@@ -24,7 +24,7 @@ namespace IntLearnShared.Networking
 
         #endregion
 
-        public const string MulticastGroup = "239.0.0.222";
+        public const string MulticastGroup = "224.5.6.7";
         public const int NetPackageMaxLength = 1024;
 
         public static int ClientPort = 2222;
@@ -32,7 +32,6 @@ namespace IntLearnShared.Networking
 
         public delegate void NetworkCallback(NetCommand command, IPAddress sender);
 
-        private UdpClient _senderUdpClient;
         private event NetworkCallback _networkCallback;
         private Thread _listenerThread;
 
@@ -54,28 +53,48 @@ namespace IntLearnShared.Networking
 
         public void SendCommand(NetCommand command, IPAddress destination)
         {
+            /*UdpClient udpClient = new UdpClient();
+
             IPEndPoint remoteEndPoint = new IPEndPoint(destination, ServerPort);
 
             byte[] data = command.GetBytes();
 
-            _senderUdpClient.Send(data, data.Length, remoteEndPoint);
+            udpClient.Send(data, data.Length, remoteEndPoint);
+
+            udpClient.Close();*/
+
+            Socket s = new Socket(AddressFamily.InterNetwork,
+                SocketType.Dgram, ProtocolType.Udp);
+
+            IPAddress ip = IPAddress.Parse(MulticastGroup);
         }
 
         public void SendCommandMulticast(NetCommand command)
         {
-            IPAddress multicastIp = IPAddress.Parse(MulticastGroup);
-            _senderUdpClient.JoinMulticastGroup(multicastIp);
-            IPEndPoint remoteEndPoint = new IPEndPoint(multicastIp, ClientPort);
+            Socket s = new Socket(AddressFamily.InterNetwork,
+                SocketType.Dgram, ProtocolType.Udp);
+
+            IPAddress ip = IPAddress.Parse(MulticastGroup);
+
+            s.SetSocketOption(SocketOptionLevel.IP,
+                SocketOptionName.AddMembership, new MulticastOption(ip));
+
+            s.SetSocketOption(SocketOptionLevel.IP,
+                SocketOptionName.MulticastTimeToLive, 2);
+
+            IPEndPoint ipep = new IPEndPoint(ip, ClientPort);
+            s.Connect(ipep);
 
             byte[] data = command.GetBytes();
 
-            _senderUdpClient.Send(data, data.Length, remoteEndPoint);
-            _senderUdpClient.DropMulticastGroup(multicastIp);
+            s.Send(data, data.Length, SocketFlags.None);
+
+            s.Close();
         }
 
         private NetworkHelper()
         {
-            _senderUdpClient = new UdpClient();
+
         }
 
         public void StartListener()
