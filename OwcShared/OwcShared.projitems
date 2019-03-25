@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>429dd69d-0734-480b-a231-12910ac47992</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>OwcShared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core\BaseElement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\LearningTask.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NetCommand.cs" />
+  </ItemGroup>
+</Project>

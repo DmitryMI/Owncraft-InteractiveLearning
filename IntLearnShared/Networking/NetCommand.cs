@@ -1,15 +1,20 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Xml;
 
-namespace OwcLearningShared
+namespace IntLearnShared.Networking
 {
     public class NetCommand
     {
-        public static int ClientPort = 2222;
-        public static int ServerPort = 2223;
+        public const string SeekServerHeader = "seek-server";
+        public const string ServerWhoisHeader = "seek-whois";
+        public const string TaskListRequestHeader = "task-list-request";
+        public const string TaskListResponseHeader = "task-list-response";
+
+        public static NetCommand SeekServerPreset = new NetCommand(SeekServerHeader, String.Empty);
 
 
         private XmlDocument _xmlDocument;
@@ -34,16 +39,7 @@ namespace OwcLearningShared
             return str.Substring(0, i);
         }
 
-        public static IPAddress GetSelfIp()
-        {
-            string localIP;
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
-            {
-                socket.Connect("8.8.8.8", 65530);
-                IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
-                return endPoint.Address;
-            }
-        }
+        
 
         public static NetCommand Parse(byte[] packageData)
         {
@@ -85,7 +81,7 @@ namespace OwcLearningShared
             commandElement.SetAttribute("header", header);
             commandElement.SetAttribute("data", data);
 
-            IPAddress local = GetSelfIp();
+            IPAddress local = NetworkHelper.GetSelfIp();
             commandElement.SetAttribute("sender", local.ToString());
         }
 
@@ -132,23 +128,20 @@ namespace OwcLearningShared
             byte[] bytes = Encoding.UTF8.GetBytes(xmlString);
             return bytes;
         }
-
         public CommandType CmdType
         {
             get
             {
-                if (GetCommandHeader() == "seek-server")
+                if (GetCommandHeader() == SeekServerHeader)
                     return CommandType.SeekServer;
-                if (GetCommandHeader() == "seek-whois")
+                if (GetCommandHeader() == ServerWhoisHeader)
                     return CommandType.ServerWhois;
-                if (GetCommandHeader() == "task-list-request")
+                if (GetCommandHeader() == TaskListRequestHeader)
                     return CommandType.TaskListRequest;
-                if (GetCommandHeader() == "task-list-response")
+                if (GetCommandHeader() == TaskListResponseHeader)
                     return CommandType.TaskListResponse;
                 return CommandType.Other;
             } 
         }
-
-        
     }
 }

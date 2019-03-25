@@ -7,19 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IntLearnShared.Core;
 
 namespace InteractiveLearning.UI
 {
     public partial class LearningTaskDisplay : Form
     {
-        Core.LearningTask _task;
+        LearningTask _task;
 
         public LearningTaskDisplay()
         {
             InitializeComponent();
         }
 
-        public LearningTaskDisplay(Core.LearningTask selectedTask)
+        public LearningTaskDisplay(LearningTask selectedTask)
         {
             InitializeComponent();
 

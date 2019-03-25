@@ -46,9 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\BaseElement.cs" />
-    <Compile Include="Core\Category.cs" />
-    <Compile Include="Core\LearningTask.cs" />
     <Compile Include="UI\ElementListItem.cs" />
     <Compile Include="UI\LearningTaskDisplay.cs">
       <SubType>Form</SubType>
@@ -103,9 +100,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="NetworkShared\NetworkShared.csproj">
-      <Project>{3f17d69d-a200-4507-b807-e449773e1854}</Project>
-      <Name>NetworkShared</Name>
+    <ProjectReference Include="..\IntLearnShared\IntLearnShared.csproj">
+      <Project>{91b53010-01f1-451f-846e-59b0b64f0c2a}</Project>
+      <Name>IntLearnShared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

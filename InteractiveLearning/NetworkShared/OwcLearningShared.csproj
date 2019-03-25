@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>OwcLearningShared</AssemblyName>
+    <RootNamespace>OwcLearningShared</RootNamespace>
   </PropertyGroup>
 
 </Project>

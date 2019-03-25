@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InteractiveLearning.Core
+namespace IntLearnShared.Core
 {
-    class Category : BaseElement, IList<BaseElement>
+    public class Category : BaseElement, IList<BaseElement>
     {
         private readonly List<BaseElement> _subElements = new List<BaseElement>();
         public IEnumerator<BaseElement> GetEnumerator()

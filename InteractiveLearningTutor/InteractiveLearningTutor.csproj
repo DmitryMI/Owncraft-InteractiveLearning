@@ -52,7 +52,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NetworkInteraction\NetworkServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -81,10 +80,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\InteractiveLearning\NetworkShared\NetworkShared.csproj">
-      <Project>{3f17d69d-a200-4507-b807-e449773e1854}</Project>
-      <Name>NetworkShared</Name>
+    <ProjectReference Include="..\IntLearnShared\IntLearnShared.csproj">
+      <Project>{91b53010-01f1-451f-846e-59b0b64f0c2a}</Project>
+      <Name>IntLearnShared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NetworkInteraction\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

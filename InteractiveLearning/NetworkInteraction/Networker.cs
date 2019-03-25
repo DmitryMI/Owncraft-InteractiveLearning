@@ -1,8 +1,11 @@
-﻿using System.Net;
+﻿using System.Diagnostics;
+using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Windows.Forms;
-using InteractiveLearning.Core;
-using NetworkShared;
+using IntLearnShared.Core;
+using IntLearnShared.Networking;
+// ReSharper disable CommentTypo
 
 namespace InteractiveLearning.NetworkInteraction
 {
@@ -30,24 +33,20 @@ namespace InteractiveLearning.NetworkInteraction
 
         private Networker()
         {
-            
+            NetworkHelper.GetInstance().NetworkCallbackEvent += NetworkPackageReceived;
+            NetworkHelper.GetInstance().StartListener();
+        }
+
+        private void NetworkPackageReceived(NetCommand cmd, IPAddress sender)
+        {
+            Debug.WriteLine("Package received in Networker! Thread: " + Thread.CurrentThread.ManagedThreadId);
         }
 
         // TODO Listen for direct packages
 
         private void FindServer()
         {
-            UdpClient udpClient = new UdpClient();
-
-            IPAddress multicastIp = IPAddress.Parse("239.0.0.222");
-            udpClient.JoinMulticastGroup(multicastIp);
-            IPEndPoint remoteEndPoint = new IPEndPoint(multicastIp, NetCommand.ClientPort);
-
-            NetworkShared.NetCommand cmd = new NetCommand("seek-server", "TEST");
-
-            byte[] data = cmd.GetBytes();
-
-            udpClient.Send(data, data.Length, remoteEndPoint);
+            NetworkHelper.GetInstance().SendCommandMulticast(NetCommand.SeekServerPreset);
         }
 
         // Пример создания задачи

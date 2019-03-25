@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using InteractiveLearning.Core;
 using InteractiveLearning.NetworkInteraction;
+using IntLearnShared.Core;
 
 namespace InteractiveLearning.UI
 {
