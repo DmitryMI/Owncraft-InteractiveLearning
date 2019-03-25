@@ -98,45 +98,27 @@ namespace IntLearnShared.Networking
 
         private void ListenerThread()
         {
-            Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            UdpClient receivingUdpClient = new UdpClient(ClientPort);
+            
 
-            // Create IP endpoint
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Any, NetworkHelper.ClientPort);
-
-            // Bind endpoint to the socket
-            s.Bind(ipep);
-
-            // Multicast IP-address
-            IPAddress ip = IPAddress.Parse(MulticastGroup);
-
-            // Add socket to the multicast group
-            s.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.AddMembership, new MulticastOption(ip, IPAddress.Any));
-
-            // Receive messages
             while (true)
             {
-                byte[] data = new byte[NetPackageMaxLength];
-                s.Receive(data);
-
-                Debug.WriteLine("Network!");
-
-                NetCommand cmd = NetCommand.Parse(data);
-
-                IPAddress sender = null;
-
                 try
                 {
-                    if (s.RemoteEndPoint is IPEndPoint remoteIpEndPoint)
-                    {
-                        sender = remoteIpEndPoint.Address;
-                    }
-                }
-                catch (SocketException ex)
-                {
-                    
-                }
+                    IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, ClientPort);
+                    // Blocks until a message returns on this socket from a remote host.
+                    Byte[] receiveBytes = receivingUdpClient.Receive(ref remoteIpEndPoint);
 
-                _networkCallback?.Invoke(cmd, sender);
+                    NetCommand cmd = NetCommand.Parse(receiveBytes);
+                    IPAddress sender = remoteIpEndPoint.Address;
+                    NetworkCallbackEvent(cmd, sender);
+                }
+                catch (SocketException e)
+                {
+                    Debug.WriteLine(e);
+                    throw;
+                }
+                
             }
         }
     }
