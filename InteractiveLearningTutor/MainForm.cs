@@ -31,6 +31,8 @@ namespace InteractiveLearningTutor
         private void NetCallback(NetCommand cmd, IPAddress sender)
         {
             Debug.WriteLine("Package received in MainForm! Thread: " + Thread.CurrentThread.ManagedThreadId);
+
+            MessageBox.Show("Network!");
         }
     }
 }

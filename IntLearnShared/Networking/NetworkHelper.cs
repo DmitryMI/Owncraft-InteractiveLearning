@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -28,7 +29,6 @@ namespace IntLearnShared.Networking
         public const int NetPackageMaxLength = 1024;
 
         public static int ClientPort = 2222;
-        public static int ServerPort = 2223;
 
         public delegate void NetworkCallback(NetCommand command, IPAddress sender);
 
@@ -130,6 +130,9 @@ namespace IntLearnShared.Networking
             {
                 byte[] data = new byte[NetPackageMaxLength];
                 s.Receive(data);
+
+                Debug.WriteLine("Network!");
+
                 NetCommand cmd = NetCommand.Parse(data);
 
                 IPAddress sender = null;
