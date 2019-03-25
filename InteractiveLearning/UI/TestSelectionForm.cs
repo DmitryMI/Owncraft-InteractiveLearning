@@ -82,7 +82,10 @@ namespace InteractiveLearning.UI
                 // TODO Process task selection
 
                 // Placeholder
-                MessageBox.Show("You selected task: " + task.Name);
+                //MessageBox.Show("You selected task: " + task.Name);
+                Hide();
+                new LearningTaskDisplay(task).ShowDialog();
+                Show();
             }
         }
 
@@ -100,6 +103,14 @@ namespace InteractiveLearning.UI
             _currentCategory = root;
 
             DisplayCurrentCategory();
+        }
+
+        private void categoryCollectionList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (categoryCollectionList.SelectedItems.Count == 0)
+                return;
+            ElementListItem item = (ElementListItem)categoryCollectionList.SelectedItems[0];
+            descriptionBox.Text = item.Element.Description;
         }
     }
 }

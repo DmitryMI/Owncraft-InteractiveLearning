@@ -64,21 +64,39 @@ namespace InteractiveLearning.NetworkInteraction
             rootCategory.Description = "Root category should not be displayed to user";
             Category integralsSubCat = new Category();
 
+            
+            
             // Integrals demo
             integralsSubCat.Name = "Integrals";
             integralsSubCat.Description = "Various exercises related to integral equations";
+
+            // Intergrals sub demo. Определенные кратные
+            Category sub1themeInt = new Category();
+            sub1themeInt.Name = "Определенные кратные интегралы";
+            sub1themeInt.Description = "Test descr";
+            integralsSubCat.Add(sub1themeInt);
+
+            // Intergrals sub demo. Определенные некратные
+            Category sub2themeInt = new Category();
+            sub2themeInt.Name = "Определенные некратные кратные интегралы";
+            sub2themeInt.Description = "Test descr 2";
+            integralsSubCat.Add(sub2themeInt);
+
+
+
             LearningTask taskInt1 = new LearningTask
             {
-                Name = "Task 1",
+                Name = "Task 1. Определенный некратный",
                 TaskText = "Do smth"
             };
-            integralsSubCat.Add(taskInt1);
+            sub2themeInt.Add(taskInt1);
             LearningTask taskInt2 = new LearningTask
             {
-                Name = "Task 2",
+                Name = "Task 2. Опреденный кратный",
                 TaskText = "Do smth"
             };
-            integralsSubCat.Add(taskInt2);
+            sub1themeInt.Add(taskInt2);
+
             rootCategory.Add(integralsSubCat);
 
             // Quadratic equations demo

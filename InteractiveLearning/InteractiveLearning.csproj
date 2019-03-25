@@ -50,6 +50,12 @@
     <Compile Include="Core\Category.cs" />
     <Compile Include="Core\LearningTask.cs" />
     <Compile Include="UI\ElementListItem.cs" />
+    <Compile Include="UI\LearningTaskDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\LearningTaskDisplay.Designer.cs">
+      <DependentUpon>LearningTaskDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Compile Include="UI\TestSelectionForm.Designer.cs">
       <DependentUpon>TestSelectionForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\LearningTaskDisplay.resx">
+      <DependentUpon>LearningTaskDisplay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

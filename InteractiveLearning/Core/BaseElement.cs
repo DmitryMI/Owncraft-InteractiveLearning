@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InteractiveLearning.Core
 {
-    class BaseElement
+    public class BaseElement
     {
         public string Name { get; set; }
         public string Description { get; set; }
