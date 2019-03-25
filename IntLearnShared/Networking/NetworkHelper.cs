@@ -33,7 +33,6 @@ namespace IntLearnShared.Networking
         public delegate void NetworkCallback(NetCommand command, IPAddress sender);
 
         private event NetworkCallback _networkCallback;
-        private Thread _listenerThread;
 
         public static IPAddress GetSelfIp()
         {
@@ -84,41 +83,52 @@ namespace IntLearnShared.Networking
 
         }
 
+        delegate void ListenerAction();
+
+        private NetCommand cachedCommand;
+        private IPAddress cachedAddress;
+        private bool _shouldStop;
+
         public void StartListener()
         {
-            _listenerThread = new Thread(ListenerThread);
-            _listenerThread.Start();
+            /*_listenerThread = new Thread(ListenerThread);
+            _listenerThread.Start();*/
+            _shouldStop = false;
+
+            ListenerAction listener = ListenerThread;
+            AsyncCallback callback = NetworkListenerCallback;
+            IAsyncResult result = listener.BeginInvoke(callback, null);
+        }
+
+        private void NetworkListenerCallback(IAsyncResult ar)
+        {
+            _networkCallback?.Invoke(cachedCommand, cachedAddress);
+            if(!_shouldStop)
+                StartListener();
         }
 
         public void StopListener()
         {
-            _listenerThread.Abort();
-            _listenerThread = null;
+            _shouldStop = false;
         }
 
         private void ListenerThread()
         {
             UdpClient receivingUdpClient = new UdpClient(ClientPort);
             
-
-            while (true)
+            try
             {
-                try
-                {
-                    IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, ClientPort);
-                    // Blocks until a message returns on this socket from a remote host.
-                    Byte[] receiveBytes = receivingUdpClient.Receive(ref remoteIpEndPoint);
+                IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, ClientPort);
+                // Blocks until a message returns on this socket from a remote host.
+                Byte[] receiveBytes = receivingUdpClient.Receive(ref remoteIpEndPoint);
 
-                    NetCommand cmd = NetCommand.Parse(receiveBytes);
-                    IPAddress sender = remoteIpEndPoint.Address;
-                    NetworkCallbackEvent(cmd, sender);
-                }
-                catch (SocketException e)
-                {
-                    Debug.WriteLine(e);
-                    throw;
-                }
-                
+                cachedCommand = NetCommand.Parse(receiveBytes);
+                cachedAddress = remoteIpEndPoint.Address;
+            }
+            catch (SocketException e)
+            {
+                Debug.WriteLine(e);
+                throw;
             }
         }
     }
