@@ -26,7 +26,7 @@ namespace InteractiveLearning.UI
             _task = selectedTask;
 
             TaskNameLabel.Text = _task.Name;
-            DescriptionBox.Text = _task.Description;
+            DescriptionBox.Text = _task.TaskText;
             PictureBox.Image = _task.Picture;
         }
 
