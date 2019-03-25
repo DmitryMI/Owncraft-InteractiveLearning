@@ -1,10 +1,14 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using IntLearnShared.Core;
 using IntLearnShared.Networking;
+using Timer = System.Windows.Forms.Timer;
+
 // ReSharper disable CommentTypo
 
 namespace InteractiveLearning.NetworkInteraction
@@ -26,13 +30,19 @@ namespace InteractiveLearning.NetworkInteraction
         //-------------------------------------
         #endregion
 
-
+        private const int TimerInterval = 100;
         public delegate void TaskListReadingCallback(Category root);
 
         private TaskListReadingCallback _readingCallback;
+        private IPAddress _serverIp;
+        private Queue<PlannedAction> _timerPlannedActions = new Queue<PlannedAction>();
+        Timer timer = new Timer();
 
         private Networker()
         {
+            timer.Tick += TimerTickHandler;
+            timer.Interval = TimerInterval;
+            timer.Start();
             NetworkHelper.GetInstance().StartListener();
         }
 
@@ -45,8 +55,51 @@ namespace InteractiveLearning.NetworkInteraction
 
         private void FindServer()
         {
+            _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, 100));
             NetworkHelper.GetInstance().SendCommandMulticast(NetCommand.SeekServerPreset);
-            //NetworkHelper.GetInstance().SendCommand(NetCommand.SeekServerPreset, IPAddress.Parse("192.168.1.1"));
+        }
+
+        private void NetworkError(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        private void FindServerWaiter(object data)
+        {
+            int repeats = (int) data;
+
+            Debug.WriteLine("Repeats: " + repeats);
+
+            NetworkHelper net = NetworkHelper.GetInstance();
+
+            if (net.PackageQueueCount() != 0 && net.PeekPackage().NetCommand.CmdType != NetCommand.CommandType.ServerWhois)
+            {
+                var package = net.PopPackage();
+                _serverIp = package.Sender;
+            }
+            else
+            {
+                repeats--;
+                if (repeats == 0)
+                    NetworkError("Timeout");
+                else
+                {
+                    _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, repeats));
+                }
+            }
+        }
+
+        private void TimerTickHandler(object sender, EventArgs ea)
+        {
+            int additionalActions = 0;
+            while (_timerPlannedActions.Count > additionalActions)
+            {
+                var plannedAction = _timerPlannedActions.Dequeue();
+                int actionsLeft = _timerPlannedActions.Count;
+                plannedAction.Invoke();
+                Debug.WriteLine("Timer invoke!");
+                additionalActions += _timerPlannedActions.Count - actionsLeft;
+            }
         }
 
         // Пример создания задачи

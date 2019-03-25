@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetworkInteraction\PlannedAction.cs" />
     <Compile Include="UI\ElementListItem.cs" />
     <Compile Include="UI\LearningTaskDisplay.cs">
       <SubType>Form</SubType>
