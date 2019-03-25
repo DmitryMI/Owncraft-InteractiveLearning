@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IntLearnShared.Networking
@@ -11,9 +12,15 @@ namespace IntLearnShared.Networking
         public const int BufferSize = 32;
 
         private T[] _buffer = new T[BufferSize];
+        private int _owningThread;
 
         private int _pushPosition = 0;
         private int _popPosition = -1;
+
+        public OwcQueue()
+        {
+            _owningThread = Thread.CurrentThread.ManagedThreadId;
+        }
 
         public void Push(T val)
         {
@@ -42,13 +49,15 @@ namespace IntLearnShared.Networking
 
         public T Peek()
         {
-            if(Count > 0)
+            if(Count > 0 && _popPosition > -1)
                 return _buffer[_popPosition];
 
             throw new Exception("Buffer empty");
         }
 
-        public int Count => _pushPosition - _popPosition;
+        public int Count => _popPosition == -1 ? 0 : _pushPosition - _popPosition;
+
+        public int OwningThread => _owningThread;
 
         public bool IsEmpty()
         {
