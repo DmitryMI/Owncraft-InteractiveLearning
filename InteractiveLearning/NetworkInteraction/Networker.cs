@@ -33,8 +33,7 @@ namespace InteractiveLearning.NetworkInteraction
 
         private Networker()
         {
-            /*NetworkHelper.GetInstance().NetworkCallbackEvent += NetworkPackageReceived;
-            NetworkHelper.GetInstance().StartListener();*/
+            NetworkHelper.GetInstance().StartListener();
         }
 
         private void NetworkPackageReceived(NetCommand cmd, IPAddress sender)

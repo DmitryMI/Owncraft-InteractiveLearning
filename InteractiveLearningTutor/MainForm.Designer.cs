@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.NetworkReadTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // NetworkReadTimer
+            // 
+            this.NetworkReadTimer.Tick += new System.EventHandler(this.NetworkReadTimer_Tick);
             // 
             // MainForm
             // 
@@ -43,6 +49,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer NetworkReadTimer;
     }
 }
 

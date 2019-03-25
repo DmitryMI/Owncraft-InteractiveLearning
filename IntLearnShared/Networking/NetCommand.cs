@@ -15,6 +15,7 @@ namespace IntLearnShared.Networking
         public const string TaskListResponseHeader = "task-list-response";
 
         public static NetCommand SeekServerPreset = new NetCommand(SeekServerHeader, String.Empty);
+        public static NetCommand SeekWhoIsPreset = new NetCommand(ServerWhoisHeader, String.Empty);
 
 
         private XmlDocument _xmlDocument;

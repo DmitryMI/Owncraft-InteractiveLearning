@@ -23,16 +23,25 @@ namespace InteractiveLearningTutor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            NetworkHelper.GetInstance().NetworkCallbackEvent += NetCallback;
             NetworkHelper.GetInstance().StartListener();
-
         }
 
-        private void NetCallback(NetCommand cmd, IPAddress sender)
+        private void NetworkReadTimer_Tick(object sender, EventArgs e)
         {
-            Debug.WriteLine("Package received in MainForm! Thread: " + Thread.CurrentThread.ManagedThreadId);
+            NetworkHelper net = NetworkHelper.GetInstance();
+            while (net.PackageQueueCount() > 0)
+            {
+                NetPackage package = net.PopPackage();
+                ProcessNetworkCommand(package.NetCommand, package.Sender);
+            }
+        }
 
-            MessageBox.Show("Network!");
+        private void ProcessNetworkCommand(NetCommand cmd, IPAddress sender)
+        {
+            if (cmd.CmdType == NetCommand.CommandType.SeekServer)
+            {
+                NetworkHelper.GetInstance().SendCommand(NetCommand.SeekWhoIsPreset, sender);
+            }
         }
     }
 }

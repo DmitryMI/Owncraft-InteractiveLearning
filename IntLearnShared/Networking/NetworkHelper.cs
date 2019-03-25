@@ -25,15 +25,35 @@ namespace IntLearnShared.Networking
 
         #endregion
 
-        public const string MulticastGroup = "224.5.6.7";
-        public const int NetPackageMaxLength = 1024;
-
         public static int ClientPort = 25565;
 
-        public delegate void NetworkCallback(NetCommand command, IPAddress sender);
-
-        private event NetworkCallback _networkCallback;
         private Thread _listenerThread;
+
+        private Queue<NetPackage> _incomingQueue = new Queue<NetPackage>();
+
+        public NetPackage PopPackage()
+        {
+            lock (_incomingQueue)
+            {
+                return _incomingQueue.Dequeue();
+            }
+        }
+
+        public NetPackage PeekPackage()
+        {
+            lock (_incomingQueue)
+            {
+                return _incomingQueue.Peek();
+            }
+        }
+
+        public int PackageQueueCount()
+        {
+            lock (_incomingQueue)
+            {
+                return _incomingQueue.Count;
+            }
+        }
 
         public static IPAddress GetSelfIp()
         {
@@ -43,12 +63,6 @@ namespace IntLearnShared.Networking
                 IPEndPoint endPoint = socket.LocalEndPoint as IPEndPoint;
                 return endPoint.Address;
             }
-        }
-
-        public NetworkCallback NetworkCallbackEvent
-        {
-            get => _networkCallback;
-            set => _networkCallback = value;
         }
 
         public void SendCommand(NetCommand command, IPAddress destination)
@@ -111,7 +125,11 @@ namespace IntLearnShared.Networking
 
                     NetCommand cmd = NetCommand.Parse(receiveBytes);
                     IPAddress sender = remoteIpEndPoint.Address;
-                    NetworkCallbackEvent(cmd, sender);
+                    lock (_incomingQueue)
+                    {
+                        _incomingQueue.Enqueue(new NetPackage(){NetCommand = cmd, Sender = sender});
+                    }
+                    
                 }
                 catch (SocketException e)
                 {
