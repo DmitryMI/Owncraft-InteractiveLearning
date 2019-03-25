@@ -34,13 +34,16 @@
             // 
             // NetworkReadTimer
             // 
+            this.NetworkReadTimer.Enabled = true;
+            this.NetworkReadTimer.Interval = 1000;
             this.NetworkReadTimer.Tick += new System.EventHandler(this.NetworkReadTimer_Tick);
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "Turor\'s office";
             this.Load += new System.EventHandler(this.MainForm_Load);
