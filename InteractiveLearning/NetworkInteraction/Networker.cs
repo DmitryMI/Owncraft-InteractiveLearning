@@ -30,6 +30,8 @@ namespace InteractiveLearning.NetworkInteraction
         //-------------------------------------
         #endregion
 
+
+        private const int DefaultTimeout = 20;
         private const int TimerInterval = 100;
         public delegate void TaskListReadingCallback(Category root);
 
@@ -51,7 +53,7 @@ namespace InteractiveLearning.NetworkInteraction
 
         private void FindServer()
         {
-            _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, 100));
+            _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, DefaultTimeout));
             NetworkHelper.GetInstance().SendCommandMulticast(NetCommand.SeekServerPreset);
         }
 
@@ -100,7 +102,7 @@ namespace InteractiveLearning.NetworkInteraction
             {
                 net.SendCommand(NetCommand.TaskListRequestPreset, _serverIp);
 
-                _timerPlannedActions.Enqueue(new PlannedAction(ReadTaskListWaiter, 100));
+                _timerPlannedActions.Enqueue(new PlannedAction(ReadTaskListWaiter, DefaultTimeout));
             }
             else
             {
@@ -173,7 +175,7 @@ namespace InteractiveLearning.NetworkInteraction
             _readingErrorCallback = errorCallback;
 
             FindServer();
-            _timerPlannedActions.Enqueue(new PlannedAction(SendRefreshRequestWaiter, 100));
+            _timerPlannedActions.Enqueue(new PlannedAction(SendRefreshRequestWaiter, DefaultTimeout));
         }
         
     }
