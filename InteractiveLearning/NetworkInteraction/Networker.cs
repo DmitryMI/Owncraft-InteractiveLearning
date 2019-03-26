@@ -33,7 +33,10 @@ namespace InteractiveLearning.NetworkInteraction
         private const int TimerInterval = 100;
         public delegate void TaskListReadingCallback(Category root);
 
+        public delegate void ErrorCallback(string message);
+
         private TaskListReadingCallback _readingCallback;
+        private ErrorCallback _readingErrorCallback;
         private IPAddress _serverIp;
         private Queue<PlannedAction> _timerPlannedActions = new Queue<PlannedAction>();
         Timer timer = new Timer();
@@ -61,7 +64,8 @@ namespace InteractiveLearning.NetworkInteraction
 
         private void NetworkError(string message)
         {
-            MessageBox.Show(message);
+            _readingErrorCallback(message);
+            //MessageBox.Show(message);
         }
 
         private void FindServerWaiter(object data)
@@ -103,11 +107,12 @@ namespace InteractiveLearning.NetworkInteraction
         }
 
         // Пример создания задачи
-        public void RequestDataFromServer(TaskListReadingCallback callback)
+        public void RequestDataFromServer(TaskListReadingCallback callback, ErrorCallback errorCallback)
         {
             FindServer();
 
             _readingCallback = callback;
+            _readingErrorCallback = errorCallback;
             // TODO Retreiving task list from tutor's server
 
             // 1) Создаём объект класса категория, заполняем его поля name и description
