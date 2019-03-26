@@ -80,6 +80,10 @@ namespace InteractiveLearning.NetworkInteraction
             {
                 var package = net.PopPackage();
                 _serverIp = package.Sender;
+
+                MessageBox.Show("Server IP: " + _serverIp.ToString());
+
+                ReturnData();
             }
             else
             {
@@ -106,15 +110,8 @@ namespace InteractiveLearning.NetworkInteraction
             }
         }
 
-        // Пример создания задачи
-        public void RequestDataFromServer(TaskListReadingCallback callback, ErrorCallback errorCallback)
+        private void ReturnData()
         {
-            FindServer();
-
-            _readingCallback = callback;
-            _readingErrorCallback = errorCallback;
-            // TODO Retreiving task list from tutor's server
-
             // 1) Создаём объект класса категория, заполняем его поля name и description
             // Placeholder
             Category rootCategory = new Category();
@@ -126,7 +123,7 @@ namespace InteractiveLearning.NetworkInteraction
             Category nahuy = new Category();
             nahuy.Name = "Nahuy";
             nahuy.Description = "Nahuy opisanie";
-            
+
             // 3) Создаём задачу - объект класса learningTask. Заполняем его поля, создаем
             // в нем нужные методы. Каждая задача должна быть описана таким уникальным классом.
             // POHUY TASK
@@ -144,6 +141,15 @@ namespace InteractiveLearning.NetworkInteraction
 
             // DO NOT REMOVE CALLBACK INVOKATION!
             _readingCallback(rootCategory);
+        }
+
+        // Пример создания задачи
+        public void RequestDataFromServer(TaskListReadingCallback callback, ErrorCallback errorCallback)
+        {
+            _readingCallback = callback;
+            _readingErrorCallback = errorCallback;
+
+            FindServer();
         }
         
     }
