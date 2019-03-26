@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IntLearnShared.Core.LearningTasks;
 
 namespace IntLearnShared.Core
 {
     public class PrebuiltTaskCreator
     {
-        public static Category GetPrebuiltTasks()
+        public static Category GetPrebuiltTasks_Alexandr()
         {
             // 1) Создаём объект класса категория, заполняем его поля name и description
             // Placeholder
@@ -36,6 +37,26 @@ namespace IntLearnShared.Core
 
             // Связываем категории. Nahuy лежит В rootCategory.
             rootCategory.Add(nahuy);
+
+            return rootCategory;
+        }
+
+        public static Category GetPrebuiltTasks()
+        {
+            Category rootCategory = new Category();
+            rootCategory.Name = "ROOT";
+            rootCategory.Description = "Root category should not be displayed to user";
+
+            Category ariphm = new Category();
+            ariphm.Name = "Арифметика";
+            ariphm.Description = "Задачи на проведение простых арифметических операций";
+
+            SimpleSummEquation summEquation = new SimpleSummEquation();
+            summEquation.Name = "Сложение двух чисел от 0 до 20";
+            summEquation.Description = "В этой задаче будет предлажено сложить два некоторых небольших числа.";
+            ariphm.Add(summEquation);
+
+            rootCategory.Add(ariphm);
 
             return rootCategory;
         }
