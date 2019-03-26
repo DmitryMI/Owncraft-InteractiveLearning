@@ -147,10 +147,20 @@ namespace IntLearnShared.Networking
                     lock (_incomingQueue)
                     {
                         _incomingQueue.Push(new NetPackage() { NetCommand = cmd, Sender = sender });
+                        Debug.WriteLine($"Queue count: {_incomingQueue.Count}");
+                    }
+
+                    Debug.WriteLine("Network data received!");
+                    if (NetworkEvent != null)
+                    {
+                        Debug.WriteLine("Invoking event handlers: " + NetworkEvent.GetInvocationList().Length);
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"No event handlers attached! Read from queue manually");
                     }
 
                     NetworkEvent?.Invoke(cmd, sender);
-
                 }
                 catch (SocketException e)
                 {

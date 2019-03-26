@@ -54,7 +54,6 @@ namespace InteractiveLearning.NetworkInteraction
             Debug.WriteLine("Package received in Networker! Thread: " + Thread.CurrentThread.ManagedThreadId);
         }
 
-        // TODO Listen for direct packages
 
         private void FindServer()
         {
@@ -72,11 +71,11 @@ namespace InteractiveLearning.NetworkInteraction
         {
             int repeats = (int) data;
 
-            Debug.WriteLine("Repeats: " + repeats);
+            //Debug.WriteLine("Repeats: " + repeats);
 
             NetworkHelper net = NetworkHelper.GetInstance();
 
-            if (net.PackageQueueCount() != 0 && net.PeekPackage().NetCommand.CmdType != NetCommand.CommandType.ServerWhois)
+            if (net.PackageQueueCount() != 0 && net.PeekPackage().NetCommand.CmdType == NetCommand.CommandType.ServerWhois)
             {
                 var package = net.PopPackage();
                 _serverIp = package.Sender;
@@ -105,7 +104,7 @@ namespace InteractiveLearning.NetworkInteraction
                 var plannedAction = _timerPlannedActions.Dequeue();
                 int actionsLeft = _timerPlannedActions.Count;
                 plannedAction.Invoke();
-                Debug.WriteLine("Timer invoke!");
+                //Debug.WriteLine("Timer invoke!");
                 additionalActions += _timerPlannedActions.Count - actionsLeft;
             }
         }
