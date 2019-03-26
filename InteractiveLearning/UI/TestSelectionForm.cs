@@ -100,6 +100,12 @@ namespace InteractiveLearning.UI
 
         private void OnNetworkerReadingError(string msg)
         {
+            Category merge = Category.MergeTrees(PrebuiltTaskCreator.GetPrebuiltTasks(), PrebuiltTaskCreator.GetDebugTree());
+
+            _currentCategory = merge;
+
+            DisplayCurrentCategory();
+
             MessageBox.Show(msg);
             refreshButton.Enabled = true;
         }
