@@ -44,7 +44,8 @@
   <ItemGroup>
     <Compile Include="Core\BaseElement.cs" />
     <Compile Include="Core\Category.cs" />
-    <Compile Include="Core\LearningTask.cs" />
+    <Compile Include="Core\LearningTasks\LearningTask.cs" />
+    <Compile Include="Core\LearningTasks\SimpleSummEquation.cs" />
     <Compile Include="Core\PrebuiltTaskCreator.cs" />
     <Compile Include="Core\Serializer.cs" />
     <Compile Include="Networking\NetCommand.cs" />
