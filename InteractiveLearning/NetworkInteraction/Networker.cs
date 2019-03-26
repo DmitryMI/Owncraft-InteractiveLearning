@@ -74,13 +74,13 @@ namespace InteractiveLearning.NetworkInteraction
                 var package = net.PopPackage();
                 _serverIp = package.Sender;
 
-                MessageBox.Show("Server IP: " + _serverIp.ToString());
+                //MessageBox.Show("Server IP: " + _serverIp.ToString());
             }
             else
             {
                 repeats--;
                 if (repeats == 0)
-                    NetworkError("Timeout");
+                    NetworkError("Server ip seeking timeout");
                 else
                 {
                     _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, repeats));
@@ -126,7 +126,7 @@ namespace InteractiveLearning.NetworkInteraction
             {
                 var package = net.PopPackage();
 
-                MessageBox.Show("Task list delivered!");
+                //MessageBox.Show("Task list delivered!");
 
                 ReturnData(package.NetCommand);
             }
@@ -134,10 +134,10 @@ namespace InteractiveLearning.NetworkInteraction
             {
                 repeats--;
                 if (repeats == 0)
-                    NetworkError("Timeout");
+                    NetworkError("Reading task lis timeout");
                 else
                 {
-                    _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, repeats));
+                    _timerPlannedActions.Enqueue(new PlannedAction(ReadTaskListWaiter, repeats));
                 }
             }
         }
@@ -147,6 +147,9 @@ namespace InteractiveLearning.NetworkInteraction
             int additionalActions = 0;
             while (_timerPlannedActions.Count > additionalActions)
             {
+                if(_timerPlannedActions.Count == 0)
+                    break;
+                
                 var plannedAction = _timerPlannedActions.Dequeue();
                 int actionsLeft = _timerPlannedActions.Count;
                 plannedAction.Invoke();
