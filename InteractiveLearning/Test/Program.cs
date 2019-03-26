@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,15 +17,16 @@ namespace Test
 
         static void Main(string[] args)
         {
-            Category root = PrebuiltTaskCreator.GetDebugTree();
+            Category rootA = PrebuiltTaskCreator.GetDebugTree();
 
-            string result = Serializer.Serialize(root);
+            Category rootB = PrebuiltTaskCreator.GetPrebuiltTasks_Alexandr();
 
+            Category merged = Category.MergeTrees(rootA, rootB);
 
-            Category restored = Serializer.Deserialize(result);
+            Debug.WriteLine("Finish!");
         }
 
 
-        
+
     }
 }
