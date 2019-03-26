@@ -16,12 +16,12 @@ namespace InteractiveLearning.UI
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            refreshButton.Enabled = false;
             RefreshList();
         }
 
         private void RefreshList()
         {
+            refreshButton.Enabled = false;
             Networker.GetInstance().RequestDataFromServer(OnNetworkerReadingFinish, OnNetworkerReadingError);
         }
 
