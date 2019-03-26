@@ -93,6 +93,10 @@ namespace InteractiveLearning.UI
             refreshButton.Enabled = true;
             _currentCategory = root;
 
+            Category merge = Category.MergeTrees(PrebuiltTaskCreator.GetPrebuiltTasks(), root);
+
+            _currentCategory = merge;
+
             DisplayCurrentCategory();
 
             MessageBox.Show("List refreshed!");
