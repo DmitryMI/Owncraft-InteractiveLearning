@@ -49,12 +49,6 @@ namespace InteractiveLearning.NetworkInteraction
             NetworkHelper.GetInstance().StartListener();
         }
 
-        private void NetworkPackageReceived(NetCommand cmd, IPAddress sender)
-        {
-            Debug.WriteLine("Package received in Networker! Thread: " + Thread.CurrentThread.ManagedThreadId);
-        }
-
-
         private void FindServer()
         {
             _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, 100));
@@ -81,8 +75,60 @@ namespace InteractiveLearning.NetworkInteraction
                 _serverIp = package.Sender;
 
                 MessageBox.Show("Server IP: " + _serverIp.ToString());
+            }
+            else
+            {
+                repeats--;
+                if (repeats == 0)
+                    NetworkError("Timeout");
+                else
+                {
+                    _timerPlannedActions.Enqueue(new PlannedAction(FindServerWaiter, repeats));
+                }
+            }
+        }
 
-                ReturnData();
+        private void SendRefreshRequestWaiter(object data)
+        {
+            int repeats = (int)data;
+
+            //Debug.WriteLine("Repeats: " + repeats);
+
+            NetworkHelper net = NetworkHelper.GetInstance();
+
+            if (_serverIp != null)
+            {
+                net.SendCommand(NetCommand.TaskListRequestPreset, _serverIp);
+
+                _timerPlannedActions.Enqueue(new PlannedAction(ReadTaskListWaiter, 100));
+            }
+            else
+            {
+                repeats--;
+                if (repeats == 0)
+                    NetworkError("Waiting for server ip failed. I don't know who is server.");
+                else
+                {
+                    _timerPlannedActions.Enqueue(new PlannedAction(SendRefreshRequestWaiter, repeats));
+                }
+            }
+        }
+
+        private void ReadTaskListWaiter(object data)
+        {
+            int repeats = (int)data;
+
+            //Debug.WriteLine("Repeats: " + repeats);
+
+            NetworkHelper net = NetworkHelper.GetInstance();
+
+            if (net.PackageQueueCount() != 0 && net.PeekPackage().NetCommand.CmdType == NetCommand.CommandType.TaskListResponse)
+            {
+                var package = net.PopPackage();
+
+                MessageBox.Show("Task list delivered!");
+
+                ReturnData(package.NetCommand);
             }
             else
             {
@@ -109,37 +155,12 @@ namespace InteractiveLearning.NetworkInteraction
             }
         }
 
-        private void ReturnData()
+        private void ReturnData(NetCommand cmd)
         {
-            // 1) Создаём объект класса категория, заполняем его поля name и description
-            // Placeholder
-            Category rootCategory = new Category();
-            rootCategory.Name = "ROOT";
-            rootCategory.Description = "Root category should not be displayed to user";
+            string data = cmd.GetCommandData();
+            Category root = Serializer.Deserialize(data);
 
-            // 2) Создаем еще одну категорию (будущую подкатегорию), аналогично
-            // NAHUY CATEGORY
-            Category nahuy = new Category();
-            nahuy.Name = "Nahuy";
-            nahuy.Description = "Nahuy opisanie";
-
-            // 3) Создаём задачу - объект класса learningTask. Заполняем его поля, создаем
-            // в нем нужные методы. Каждая задача должна быть описана таким уникальным классом.
-            // POHUY TASK
-            LearningTask pohuy = new LearningTask();
-            pohuy.Name = "Pohuy";
-            pohuy.Description = "Pohuy na opisaniye";
-            pohuy.TaskText = "Какой-то текст задачи с двумя звёздочками";
-            pohuy.Picture = null;
-
-            // Связываем задачу (объект learningTask) с категорией. В категории лежит данная задача.
-            nahuy.Add(pohuy);
-
-            // Связываем категории. Nahuy лежит В rootCategory.
-            rootCategory.Add(nahuy);
-
-            // DO NOT REMOVE CALLBACK INVOKATION!
-            _readingCallback(rootCategory);
+            _readingCallback(root);
         }
 
         // Пример создания задачи
@@ -149,6 +170,7 @@ namespace InteractiveLearning.NetworkInteraction
             _readingErrorCallback = errorCallback;
 
             FindServer();
+            _timerPlannedActions.Enqueue(new PlannedAction(SendRefreshRequestWaiter, 100));
         }
         
     }

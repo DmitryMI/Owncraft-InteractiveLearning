@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IntLearnShared.Core;
 using IntLearnShared.Networking;
 
 namespace InteractiveLearningTutor
@@ -37,11 +38,24 @@ namespace InteractiveLearningTutor
 
         private void ProcessNetworkCommand(NetCommand cmd, IPAddress sender)
         {
-            Debug.WriteLine("Event handled in thread: " + Thread.CurrentThread.ManagedThreadId);
             if (cmd.CmdType == NetCommand.CommandType.SeekServer)
             {
                 NetworkHelper.GetInstance().PopPackage();
                 NetworkHelper.GetInstance().SendCommand(NetCommand.SeekWhoIsPreset, sender);
+
+                Debug.WriteLine("Seek server response to " + sender.ToString());
+            }
+
+            if (cmd.CmdType == NetCommand.CommandType.TaskListRequest)
+            {
+                NetworkHelper.GetInstance().PopPackage();
+                Category root = PrebuiltTaskCreator.GetDebugTree();
+                string serialized = Serializer.Serialize(root);
+
+                NetCommand response = new NetCommand(NetCommand.TaskListResponseHeader, serialized);
+                NetworkHelper.GetInstance().SendCommand(response, sender);
+
+                Debug.WriteLine("Task list response to " + sender.ToString());
             }
         }
     }

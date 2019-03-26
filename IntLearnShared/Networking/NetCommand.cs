@@ -16,6 +16,7 @@ namespace IntLearnShared.Networking
 
         public static NetCommand SeekServerPreset = new NetCommand(SeekServerHeader, String.Empty);
         public static NetCommand SeekWhoIsPreset = new NetCommand(ServerWhoisHeader, String.Empty);
+        public static NetCommand TaskListRequestPreset = new NetCommand(TaskListRequestHeader, String.Empty);
 
 
         private XmlDocument _xmlDocument;
