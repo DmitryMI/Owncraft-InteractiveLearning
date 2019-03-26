@@ -16,12 +16,13 @@ namespace InteractiveLearning.UI
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
+            refreshButton.Enabled = false;
             RefreshList();
         }
 
         private void RefreshList()
         {
-            Networker.GetInstance().RequestDataFromServer(OnNetworkerReadingFinish);
+            Networker.GetInstance().RequestDataFromServer(OnNetworkerReadingFinish, OnNetworkerReadingError);
         }
 
         private void DisplayCurrentCategory()
@@ -89,9 +90,18 @@ namespace InteractiveLearning.UI
 
         private void OnNetworkerReadingFinish(Category root)
         {
+            refreshButton.Enabled = true;
             _currentCategory = root;
 
             DisplayCurrentCategory();
+
+            MessageBox.Show("List refreshed!");
+        }
+
+        private void OnNetworkerReadingError(string msg)
+        {
+            MessageBox.Show(msg);
+            refreshButton.Enabled = true;
         }
 
         private void categoryCollectionList_SelectedIndexChanged(object sender, EventArgs e)
