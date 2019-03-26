@@ -97,9 +97,15 @@ namespace IntLearnShared.Networking
             // Get all subnet's IPs and send one package to all of them.
             IPAddress localIp = GetSelfIp();
             string strIp = localIp.ToString();
-            string subnetIp = strIp.Substring(0, strIp.LastIndexOf('.') + 1);
+            int dotIndex = strIp.LastIndexOf('.');
+            string subnetIp = strIp.Substring(0, dotIndex + 1);
+            int currentIpNumber = Int32.Parse(strIp.Substring(dotIndex + 1, strIp.Length - dotIndex - 1));
+            
             for (int i = 0; i < 255; i++)
             {
+                if(currentIpNumber == i)
+                    continue;
+                
                 string clientIp = subnetIp + i.ToString();
                 SendCommand(command, IPAddress.Parse(clientIp));
             }
