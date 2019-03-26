@@ -47,9 +47,10 @@
     <Compile Include="Core\LearningTask.cs" />
     <Compile Include="Networking\NetCommand.cs" />
     <Compile Include="Networking\NetPackage.cs" />
-    <Compile Include="Networking\OwcQueue.cs" />
+    <Compile Include="Utils\OwcQueue.cs" />
     <Compile Include="Networking\NetworkHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\OwcRandom.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

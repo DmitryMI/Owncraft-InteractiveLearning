@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using IntLearnShared.Utils;
 
 namespace IntLearnShared.Networking
 {
@@ -20,16 +21,22 @@ namespace IntLearnShared.Networking
         {
             if(_instance == null)
                 _instance = new NetworkHelper();
-            return new NetworkHelper();
+
+            return _instance;
         }
 
         #endregion
 
         public static int ClientPort = 25565;
 
+        public delegate void NetworkCallback(NetCommand command, IPAddress sender);
+
+        public event NetworkCallback NetworkEvent;
+
         private Thread _listenerThread;
 
         private OwcQueue<NetPackage> _incomingQueue = new OwcQueue<NetPackage>();
+
 
         public NetPackage PopPackage()
         {
@@ -95,7 +102,7 @@ namespace IntLearnShared.Networking
 
         private NetworkHelper()
         {
-
+            
         }
 
         public void StartListener()
@@ -125,11 +132,14 @@ namespace IntLearnShared.Networking
 
                     NetCommand cmd = NetCommand.Parse(receiveBytes);
                     IPAddress sender = remoteIpEndPoint.Address;
+
                     lock (_incomingQueue)
                     {
-                        _incomingQueue.Push(new NetPackage(){NetCommand = cmd, Sender = sender});
+                        _incomingQueue.Push(new NetPackage() { NetCommand = cmd, Sender = sender });
                     }
-                    
+
+                    NetworkEvent?.Invoke(cmd, sender);
+
                 }
                 catch (SocketException e)
                 {

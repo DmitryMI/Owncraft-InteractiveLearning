@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using IntLearnShared.Networking;
+using IntLearnShared.Utils;
 
 namespace Test
 {
@@ -40,8 +41,14 @@ namespace Test
 
         static void ThreadAdded()
         {
-            lock(_queue)
+            lock (_queue)
+            {
+                Console.WriteLine("Thead gains access to CR");
+                Thread.Sleep(1000);
                 _queue.Push(9999);
+                Thread.Sleep(1000);
+                Console.WriteLine("Thead returns access to CR");
+            }
         }
     }
 }

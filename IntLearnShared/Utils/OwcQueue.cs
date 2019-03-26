@@ -1,25 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace IntLearnShared.Networking
+namespace IntLearnShared.Utils
 {
     public class OwcQueue<T>
     {
         public const int BufferSize = 32;
 
         private T[] _buffer = new T[BufferSize];
-        private int _owningThread;
 
         private int _pushPosition = 0;
         private int _popPosition = -1;
 
         public OwcQueue()
         {
-            _owningThread = Thread.CurrentThread.ManagedThreadId;
+
         }
 
         public void Push(T val)
@@ -56,9 +50,7 @@ namespace IntLearnShared.Networking
         }
 
         public int Count => _popPosition == -1 ? 0 : _pushPosition - _popPosition;
-
-        public int OwningThread => _owningThread;
-
+        
         public bool IsEmpty()
         {
             return _popPosition == -1;
