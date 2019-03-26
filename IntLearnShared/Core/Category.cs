@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace IntLearnShared.Core
 {
-    public class Category : BaseElement, IList<BaseElement>
+    public class Category : BaseElement, IList<BaseElement>, ICloneable
     {
         private readonly List<BaseElement> _subElements = new List<BaseElement>();
         public IEnumerator<BaseElement> GetEnumerator()
@@ -71,6 +73,63 @@ namespace IntLearnShared.Core
         {
             get => _subElements[index];
             set => _subElements[index] = value;
+        }
+
+        /// <summary>
+        /// Merges two trees. Categories with same name will be merged into one.
+        /// </summary>
+        /// <param name="rootA"></param>
+        /// <param name="rootB"></param>
+        /// <returns></returns>
+        public static Category MergeTrees(Category rootA, Category rootB)
+        {
+            Category cloneA = (Category)rootA.Clone();
+
+            foreach (var childB in rootB)
+            {
+                bool wasAdded = false;
+                foreach (BaseElement childA in rootA)
+                {
+                    if (childA.Name == childB.Name)
+                    {
+                        if (childA is Category && childB is Category)
+                        {
+                            Category mergeResult = MergeTrees((Category)childA, (Category)childB);
+                            cloneA.Add(mergeResult);
+                            cloneA.Remove(childA);
+                            wasAdded = true;
+                        }
+                    }
+                }
+
+                if (wasAdded == false)
+                {
+                    cloneA.Add(childB);
+                }
+            }
+
+            return cloneA;
+        }
+
+        public virtual object Clone()
+        {
+            Category clone = new Category() { Name = Name, Description = Description, Thumbnail = Thumbnail };
+
+            foreach (var child in _subElements)
+            {
+                if (child is ICloneable childCloneable)
+                {
+                    object childClone = (childCloneable).Clone();
+
+                    clone.Add((BaseElement)childClone);
+                }
+                else
+                {
+                    clone.Add(child);
+                }
+            }
+
+            return clone;
         }
     }
 }
