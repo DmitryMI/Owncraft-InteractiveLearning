@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using InteractiveLearning.NetworkInteraction;
 using IntLearnShared.Core;
+using IntLearnShared.Core.LearningTasks;
 
 namespace InteractiveLearning.UI
 {
@@ -91,7 +92,6 @@ namespace InteractiveLearning.UI
         private void OnNetworkerReadingFinish(Category root)
         {
             refreshButton.Enabled = true;
-            _currentCategory = root;
 
             Category merge = Category.MergeTrees(PrebuiltTaskCreator.GetPrebuiltTasks(), root);
 
