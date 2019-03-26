@@ -23,18 +23,16 @@ namespace InteractiveLearningTutor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            NetworkHelper.GetInstance().NetworkEvent += ProcessNetworkCommand;
+            //NetworkHelper.GetInstance().NetworkEvent += ProcessNetworkCommand;
             NetworkHelper.GetInstance().StartListener();
         }
 
         private void NetworkReadTimer_Tick(object sender, EventArgs e)
         {
-            /*NetworkHelper net = NetworkHelper.GetInstance();
-            while (net.PackageQueueCount() > 0)
-            {
-                NetPackage package = net.PopPackage();
-                ProcessNetworkCommand(package.NetCommand, package.Sender);
-            }*/
+            NetworkHelper net = NetworkHelper.GetInstance();
+
+            NetPackage package = net.PeekPackage();
+            ProcessNetworkCommand(package.NetCommand, package.Sender);
         }
 
         private void ProcessNetworkCommand(NetCommand cmd, IPAddress sender)
@@ -42,6 +40,7 @@ namespace InteractiveLearningTutor
             Debug.WriteLine("Event handled in thread: " + Thread.CurrentThread.ManagedThreadId);
             if (cmd.CmdType == NetCommand.CommandType.SeekServer)
             {
+                NetworkHelper.GetInstance().PopPackage();
                 NetworkHelper.GetInstance().SendCommand(NetCommand.SeekWhoIsPreset, sender);
             }
         }

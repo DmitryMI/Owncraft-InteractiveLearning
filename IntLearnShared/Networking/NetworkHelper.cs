@@ -31,6 +31,11 @@ namespace IntLearnShared.Networking
 
         public delegate void NetworkCallback(NetCommand command, IPAddress sender);
 
+        /// <summary>
+        /// This event is raised when a new command is received from network.
+        /// Handler must pop the last command from queue, if it processed it properly.
+        /// If this command was not addressed to a handler, it must leave the queue untouched
+        /// </summary>
         public event NetworkCallback NetworkEvent;
 
         private Thread _listenerThread;
