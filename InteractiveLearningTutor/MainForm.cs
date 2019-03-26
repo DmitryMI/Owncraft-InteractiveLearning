@@ -32,8 +32,11 @@ namespace InteractiveLearningTutor
         {
             NetworkHelper net = NetworkHelper.GetInstance();
 
-            NetPackage package = net.PeekPackage();
-            ProcessNetworkCommand(package.NetCommand, package.Sender);
+            if (net.PackageQueueCount() > 0)
+            {
+                NetPackage package = net.PeekPackage();
+                ProcessNetworkCommand(package.NetCommand, package.Sender);
+            }
         }
 
         private void ProcessNetworkCommand(NetCommand cmd, IPAddress sender)
