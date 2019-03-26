@@ -42,7 +42,10 @@ namespace IntLearnShared.Networking
 
         private OwcQueue<NetPackage> _incomingQueue = new OwcQueue<NetPackage>();
 
-
+        /// <summary>
+        /// Removes network package from queue and returns it
+        /// </summary>
+        /// <returns>Latest network package</returns>
         public NetPackage PopPackage()
         {
             lock (_incomingQueue)
@@ -51,6 +54,10 @@ namespace IntLearnShared.Networking
             }
         }
 
+        /// <summary>
+        /// Returns latest network package but does not remove it from queue
+        /// </summary>
+        /// <returns>Latest network package</returns>
         public NetPackage PeekPackage()
         {
             lock (_incomingQueue)
@@ -59,6 +66,10 @@ namespace IntLearnShared.Networking
             }
         }
 
+        /// <summary>
+        /// Count of packages, stored in queue
+        /// </summary>
+        /// <returns>Count of packages</returns>
         public int PackageQueueCount()
         {
             lock (_incomingQueue)
