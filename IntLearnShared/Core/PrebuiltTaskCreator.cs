@@ -18,25 +18,25 @@ namespace IntLearnShared.Core
             rootCategory.Description = "Root category should not be displayed to user";
 
             // 2) Создаем еще одну категорию (будущую подкатегорию), аналогично
-            // NAHUY CATEGORY
-            Category nahuy = new Category();
-            nahuy.Name = "Nahuy";
-            nahuy.Description = "Nahuy opisanie";
+            // cat1 CATEGORY
+            Category cat1 = new Category();
+            cat1.Name = "Cat 1";
+            cat1.Description = "Cat1 desc";
 
             // 3) Создаём задачу - объект класса learningTask. Заполняем его поля, создаем
             // в нем нужные методы. Каждая задача должна быть описана таким уникальным классом.
-            // POHUY TASK
-            LearningTask pohuy = new LearningTask();
-            pohuy.Name = "Pohuy";
-            pohuy.Description = "Pohuy na opisaniye";
-            pohuy.TaskText = "Какой-то текст задачи с двумя звёздочками";
-            pohuy.Picture = null;
+            // task1 TASK
+            LearningTask task1 = new LearningTask();
+            task1.Name = "Task 1";
+            task1.Description = "task1 na opisaniye";
+            task1.TaskText = "Какой-то текст задачи с двумя звёздочками";
+            task1.Picture = null;
 
             // Связываем задачу (объект learningTask) с категорией. В категории лежит данная задача.
-            nahuy.Add(pohuy);
+            cat1.Add(task1);
 
-            // Связываем категории. Nahuy лежит В rootCategory.
-            rootCategory.Add(nahuy);
+            // Связываем категории. cat1 лежит В rootCategory.
+            rootCategory.Add(cat1);
 
             return rootCategory;
         }
@@ -69,40 +69,40 @@ namespace IntLearnShared.Core
                 Name = "ROOT", Description = "Root category should not be displayed to user"
             };
 
-            Category nahuy = new Category {Name = "Nahuy", Description = "Nahuy opisanie"};
+            Category cat1 = new Category {Name = "cat1", Description = "cat1 opisanie"};
 
-            Category nahuy2 = new Category {Name = "Nahuy2", Description = "Nahuy opisanie 2"};
+            Category cat12 = new Category {Name = "cat12", Description = "cat1 opisanie 2"};
 
-            LearningTask pohuy = new LearningTask
+            LearningTask task1 = new LearningTask
             {
-                Name = "Pohuy",
-                Description = "Pohuy na opisaniye",
+                Name = "task1",
+                Description = "task1 na opisaniye",
                 TaskText = "Какой-то текст задачи с двумя звёздочками",
                 Picture = null
             };
 
-            LearningTask pohuy2 = new LearningTask
+            LearningTask task12 = new LearningTask
             {
-                Name = "Pohuy2",
-                Description = "Pohuy na opisaniye 2",
+                Name = "task12",
+                Description = "task1 na opisaniye 2",
                 TaskText = "Какой-то текст задачи с двумя звёздочками 2",
                 Picture = null
             };
 
-            LearningTask pohuy3 = new LearningTask
+            LearningTask task13 = new LearningTask
             {
-                Name = "Pohuy3",
-                Description = "Pohuy na opisaniye 3",
+                Name = "task13",
+                Description = "task1 na opisaniye 3",
                 TaskText = "Какой-то текст задачи с двумя звёздочками 3",
                 Picture = null
             };
 
-            nahuy.Add(pohuy);
-            nahuy2.Add(pohuy2);
-            nahuy2.Add(pohuy3);
+            cat1.Add(task1);
+            cat12.Add(task12);
+            cat12.Add(task13);
 
-            rootCategory.Add(nahuy);
-            rootCategory.Add(nahuy2);
+            rootCategory.Add(cat1);
+            rootCategory.Add(cat12);
 
             return rootCategory;
         }
