@@ -51,9 +51,11 @@ namespace IntLearnShared.Core
             ariphm.Name = "Арифметика";
             ariphm.Description = "Задачи на проведение простых арифметических операций";
 
-            SimpleSummEquation summEquation = new SimpleSummEquation();
-            summEquation.Name = "Сложение двух чисел от 0 до 20";
-            summEquation.Description = "В этой задаче будет предлажено сложить два некоторых небольших числа.";
+            SimpleSummEquation summEquation = new SimpleSummEquation
+            {
+                Name = "Сложение двух чисел от 0 до 20",
+                Description = "В этой задаче будет предлажено сложить два некоторых небольших числа."
+            };
             ariphm.Add(summEquation);
 
             rootCategory.Add(ariphm);
