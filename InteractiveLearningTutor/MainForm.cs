@@ -1,4 +1,9 @@
-﻿using System;
+﻿// TODO
+/*
+ * 1) 
+*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -193,6 +198,12 @@ namespace InteractiveLearningTutor
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            if (_lastSelectedElement == null)
+            {
+                MessageBox.Show("Ни один элемент не выбран", "Ошибка", MessageBoxButtons.OK);
+                return;
+            }
+
             BaseElement edited = _lastSelectedElement.Element;
 
             if (String.IsNullOrEmpty(ElementNameBox.Text))
