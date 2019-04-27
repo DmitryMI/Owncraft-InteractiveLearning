@@ -93,6 +93,7 @@ namespace IntLearnShared.Networking
             // WORKS!
 
             UdpClient udpclient = new UdpClient();
+            udpclient.ExclusiveAddressUse = false;
 
             IPEndPoint remoteep = new IPEndPoint(destination, ClientPort);
 
@@ -141,8 +142,10 @@ namespace IntLearnShared.Networking
 
         private void ListenerThread()
         {
-            UdpClient receivingUdpClient = new UdpClient(ClientPort);
-            
+            UdpClient receivingUdpClient = new UdpClient();
+
+            receivingUdpClient.ExclusiveAddressUse = false;
+            receivingUdpClient.Connect(new IPEndPoint(IPAddress.None, ClientPort));
 
             while (true)
             {
