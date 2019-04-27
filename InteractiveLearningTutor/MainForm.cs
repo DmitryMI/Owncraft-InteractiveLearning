@@ -17,6 +17,7 @@ using IntLearnShared.Networking;
 
 namespace InteractiveLearningTutor
 {
+    //review: процесс не завершается при закрытии программы
     public partial class MainForm : Form
     {
         public const string DataFileName = "catalogue.xml";
@@ -34,6 +35,7 @@ namespace InteractiveLearningTutor
             if (!File.Exists(DataFileName))
             {
                 // This is the first launch of program.
+                //review: наименование метода отличается от остальных
                 Category root = PrebuiltTaskCreator.GetPrebuiltTasks_Alexandr();
                 Category merge = Category.MergeTrees(PrebuiltTaskCreator.GetPrebuiltTasks(), root);
 
@@ -62,6 +64,7 @@ namespace InteractiveLearningTutor
             }
         }
 
+        //review: MainWindow не должен заниматься сетевыми подключениями
         private void ProcessNetworkCommand(NetCommand cmd, IPAddress sender)
         {
             if (cmd.CmdType == NetCommand.CommandType.SeekServer)
@@ -135,6 +138,7 @@ namespace InteractiveLearningTutor
 
         private void ProcessUserChoice(BaseElement clickedElement)
         {
+            //review: сделайте без if, вспомните ООП))
             if (clickedElement is Category)
             {
                 _currentCategory = (Category)clickedElement;
