@@ -194,12 +194,21 @@ namespace InteractiveLearningTutor
         private void SaveButton_Click(object sender, EventArgs e)
         {
             BaseElement edited = _lastSelectedElement.Element;
-            edited.Name = ElementNameBox.Text;
-            edited.Description = descriptionBox.Text;
 
-            DisplayCurrentCategory();
+            if (String.IsNullOrEmpty(ElementNameBox.Text))
+            {
+                MessageBox.Show("Имя элемента не должно быть пустым", "Ошибка", MessageBoxButtons.OK);
+            }
+            else
+            {
 
-            SaveToFile();
+                edited.Name = ElementNameBox.Text;
+                edited.Description = descriptionBox.Text;
+
+                DisplayCurrentCategory();
+
+                SaveToFile();
+            }
         }
 
         private void AddCategoryButton_Click(object sender, EventArgs e)
