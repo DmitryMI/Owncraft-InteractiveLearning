@@ -1,4 +1,9 @@
-﻿using System;
+﻿// TODO
+/*
+ * 1) 
+*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -197,13 +202,28 @@ namespace InteractiveLearningTutor
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            if (_lastSelectedElement == null)
+            {
+                MessageBox.Show("Ни один элемент не выбран", "Ошибка", MessageBoxButtons.OK);
+                return;
+            }
+
             BaseElement edited = _lastSelectedElement.Element;
-            edited.Name = ElementNameBox.Text;
-            edited.Description = descriptionBox.Text;
 
-            DisplayCurrentCategory();
+            if (String.IsNullOrEmpty(ElementNameBox.Text))
+            {
+                MessageBox.Show("Имя элемента не должно быть пустым", "Ошибка", MessageBoxButtons.OK);
+            }
+            else
+            {
 
-            SaveToFile();
+                edited.Name = ElementNameBox.Text;
+                edited.Description = descriptionBox.Text;
+
+                DisplayCurrentCategory();
+
+                SaveToFile();
+            }
         }
 
         private void AddCategoryButton_Click(object sender, EventArgs e)
