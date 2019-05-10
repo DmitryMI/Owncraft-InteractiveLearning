@@ -42,6 +42,8 @@ namespace IntLearnShared.Networking
 
         private OwcQueue<NetPackage> _incomingQueue = new OwcQueue<NetPackage>();
 
+        private UdpClient _receivingUdpClient = new UdpClient();
+
         /// <summary>
         /// Removes network package from queue and returns it
         /// </summary>
@@ -136,16 +138,17 @@ namespace IntLearnShared.Networking
 
         public void StopListener()
         {
+            _receivingUdpClient.Close();
             _listenerThread.Abort();
             _listenerThread = null;
         }
 
         private void ListenerThread()
         {
-            UdpClient receivingUdpClient = new UdpClient();
 
-            receivingUdpClient.ExclusiveAddressUse = false;
-            receivingUdpClient.Connect(new IPEndPoint(IPAddress.None, ClientPort));
+
+            _receivingUdpClient.ExclusiveAddressUse = false;
+            _receivingUdpClient.Connect(new IPEndPoint(IPAddress.None, ClientPort));
 
             while (true)
             {
@@ -153,7 +156,10 @@ namespace IntLearnShared.Networking
                 {
                     IPEndPoint remoteIpEndPoint = new IPEndPoint(IPAddress.Any, ClientPort);
                     // Blocks until a message returns on this socket from a remote host.
-                    Byte[] receiveBytes = receivingUdpClient.Receive(ref remoteIpEndPoint);
+                    Byte[] receiveBytes = _receivingUdpClient.Receive(ref remoteIpEndPoint);
+
+                    if(receiveBytes.Length == 0)
+                        return;
 
                     NetCommand cmd = NetCommand.Parse(receiveBytes);
                     IPAddress sender = remoteIpEndPoint.Address;

@@ -1,9 +1,4 @@
-﻿// TODO
-/*
- * 1) 
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -260,6 +255,11 @@ namespace InteractiveLearningTutor
                 DisplayCurrentCategory();
                 SaveToFile();
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            NetworkHelper.GetInstance().StopListener();
         }
     }
 }
