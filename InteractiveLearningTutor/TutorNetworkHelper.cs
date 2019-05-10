@@ -14,11 +14,19 @@ namespace InteractiveLearningTutor
     class TutorNetworkHelper
     {
         private Timer _timer;
+        private Category _root;
 
-        TutorNetworkHelper()
+        public TutorNetworkHelper()
         {
+            _timer = new Timer();
+            _timer.Interval = 1000;
             _timer.Tick += NetworkReadTimer_Tick;
             _timer.Start();
+        }
+
+        public void UpdateDataBase(Category root)
+        {
+            _root = root;
         }
 
         public void StartListening()
@@ -58,11 +66,7 @@ namespace InteractiveLearningTutor
                 NetworkHelper.GetInstance().PopPackage();
                 //Category root = PrebuiltTaskCreator.GetDebugTree();
 
-                Category root = _currentCategory;
-                while (root.ParentCategory != null)
-                    root = root.ParentCategory;
-
-                string serialized = Serializer.Serialize(root);
+                string serialized = Serializer.Serialize(_root);
 
                 NetCommand response = new NetCommand(NetCommand.TaskListResponseHeader, serialized);
                 NetworkHelper.GetInstance().SendCommand(response, sender);

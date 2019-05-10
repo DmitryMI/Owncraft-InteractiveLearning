@@ -47,6 +47,9 @@ namespace InteractiveLearningTutor
         private void MainForm_Load(object sender, EventArgs e)
         {
             //NetworkHelper.GetInstance().StartListener();
+            if(_networkHelper == null)
+                _networkHelper = new TutorNetworkHelper();
+
             _networkHelper.StartListening();
 
             FirstLaunch();
@@ -124,6 +127,7 @@ namespace InteractiveLearningTutor
                 byte[] fileData = File.ReadAllBytes(DataFileName);
                 string data = Encoding.Unicode.GetString(fileData);
                 _currentCategory = Serializer.Deserialize(data);
+                _networkHelper.UpdateDataBase(_currentCategory);
                 DisplayCurrentCategory();
             }
             catch (Exception e)
@@ -138,6 +142,8 @@ namespace InteractiveLearningTutor
             Category cat = _currentCategory;
             while (cat.ParentCategory != null)
                 cat = cat.ParentCategory;
+
+            _networkHelper.UpdateDataBase(cat);
 
             string ser = Serializer.Serialize(cat);
             File.WriteAllBytes(DataFileName, Encoding.Unicode.GetBytes(ser));
