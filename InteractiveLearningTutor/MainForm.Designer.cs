@@ -48,7 +48,6 @@
             // 
             this.NetworkReadTimer.Enabled = true;
             this.NetworkReadTimer.Interval = 1000;
-            this.NetworkReadTimer.Tick += new System.EventHandler(this.NetworkReadTimer_Tick);
             // 
             // label1
             // 
