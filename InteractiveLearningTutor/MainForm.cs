@@ -24,6 +24,7 @@ namespace InteractiveLearningTutor
         private Category _currentCategory;
         private ElementListItem _lastSelectedElement;
 
+        private TutorNetworkHelper _networkHelper;
         public MainForm()
         {
             InitializeComponent();
@@ -45,52 +46,14 @@ namespace InteractiveLearningTutor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            NetworkHelper.GetInstance().StartListener();
+            //NetworkHelper.GetInstance().StartListener();
+            _networkHelper.StartListening();
 
             FirstLaunch();
 
             LoadFromFile();
         }
-
-        private void NetworkReadTimer_Tick(object sender, EventArgs e)
-        {
-            NetworkHelper net = NetworkHelper.GetInstance();
-
-            if (net.PackageQueueCount() > 0)
-            {
-                NetPackage package = net.PeekPackage();
-                ProcessNetworkCommand(package.NetCommand, package.Sender);
-            }
-        }
-
-        //review: MainWindow не должен заниматься сетевыми подключениями
-        private void ProcessNetworkCommand(NetCommand cmd, IPAddress sender)
-        {
-            if (cmd.CmdType == NetCommand.CommandType.SeekServer)
-            {
-                NetworkHelper.GetInstance().PopPackage();
-                NetworkHelper.GetInstance().SendCommand(NetCommand.SeekWhoIsPreset, sender);
-
-                Debug.WriteLine("Seek server response to " + sender.ToString());
-            }
-
-            if (cmd.CmdType == NetCommand.CommandType.TaskListRequest)
-            {
-                NetworkHelper.GetInstance().PopPackage();
-                //Category root = PrebuiltTaskCreator.GetDebugTree();
-
-                Category root = _currentCategory;
-                while (root.ParentCategory != null)
-                    root = root.ParentCategory;
-
-                string serialized = Serializer.Serialize(root);
-
-                NetCommand response = new NetCommand(NetCommand.TaskListResponseHeader, serialized);
-                NetworkHelper.GetInstance().SendCommand(response, sender);
-
-                Debug.WriteLine("Task list response to " + sender.ToString());
-            }
-        }
+        
 
         private void DisplayCurrentCategory()
         {
@@ -258,7 +221,7 @@ namespace InteractiveLearningTutor
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            NetworkHelper.GetInstance().StopListener();
+            _networkHelper.StopListening();
         }
     }
 }
