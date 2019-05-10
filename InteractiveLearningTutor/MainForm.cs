@@ -17,7 +17,6 @@ using IntLearnShared.Networking;
 
 namespace InteractiveLearningTutor
 {
-    //review: процесс не завершается при закрытии программы
     public partial class MainForm : Form
     {
         public const string DataFileName = "catalogue.xml";
@@ -36,7 +35,7 @@ namespace InteractiveLearningTutor
             {
                 // This is the first launch of program.
                 //review: наименование метода отличается от остальных
-                Category root = PrebuiltTaskCreator.GetPrebuiltTasks_Alexandr();
+                Category root = PrebuiltTaskCreator.GetPrebuiltTasksAux();
                 Category merge = Category.MergeTrees(PrebuiltTaskCreator.GetPrebuiltTasks(), root);
 
                 _currentCategory = merge;

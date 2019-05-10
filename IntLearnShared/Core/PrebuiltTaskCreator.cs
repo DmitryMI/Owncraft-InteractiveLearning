@@ -9,7 +9,7 @@ namespace IntLearnShared.Core
 {
     public class PrebuiltTaskCreator
     {
-        public static Category GetPrebuiltTasks_Alexandr()
+        public static Category GetPrebuiltTasksAux()
         {
             // 1) Создаём объект класса категория, заполняем его поля name и description
             // Placeholder

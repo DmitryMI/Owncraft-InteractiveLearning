@@ -19,7 +19,7 @@ namespace Test
         {
             Category rootA = PrebuiltTaskCreator.GetDebugTree();
 
-            Category rootB = PrebuiltTaskCreator.GetPrebuiltTasks_Alexandr();
+            Category rootB = PrebuiltTaskCreator.GetPrebuiltTasksAux();
 
             Category merged = Category.MergeTrees(rootA, rootB);
 
