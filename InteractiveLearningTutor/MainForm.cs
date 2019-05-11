@@ -18,13 +18,12 @@ using IntLearnShared.Networking;
 namespace InteractiveLearningTutor
 {
     public partial class MainForm : Form
-    {
-        public const string DataFileName = "catalogue.xml";
-
-        private Category _currentCategory;
+    {        
         private ElementListItem _lastSelectedElement;
 
         private TutorNetworkHelper _networkHelper;
+        private TaskManager _taskManager = new TaskManager();
+
         public MainForm()
         {
             InitializeComponent();
@@ -32,29 +31,19 @@ namespace InteractiveLearningTutor
 
         private void FirstLaunch()
         {
-            if (!File.Exists(DataFileName))
-            {
-                // This is the first launch of program.
-                //review: наименование метода отличается от остальных
-                Category root = PrebuiltTaskCreator.GetPrebuiltTasksAux();
-                Category merge = Category.MergeTrees(PrebuiltTaskCreator.GetPrebuiltTasks(), root);
+            _taskManager.Init();
 
-                _currentCategory = merge;
-                SaveToFile();
-            }
+            DisplayCurrentCategory();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            //NetworkHelper.GetInstance().StartListener();
             if(_networkHelper == null)
                 _networkHelper = new TutorNetworkHelper();
 
             _networkHelper.StartListening();
 
-            FirstLaunch();
-
-            LoadFromFile();
+            FirstLaunch();            
         }
         
 
@@ -62,16 +51,16 @@ namespace InteractiveLearningTutor
         {
             categoryCollectionList.Clear();
 
-            if (_currentCategory.ParentCategory == null)
+            if (_taskManager.Current.ParentCategory == null)
             {
                 CurrentCategoryLabel.Text = "Available categories:";
             }
             else
             {
-                CurrentCategoryLabel.Text = _currentCategory.Name + ":";
+                CurrentCategoryLabel.Text = _taskManager.Current.Name + ":";
             }
 
-            foreach (BaseElement element in _currentCategory)
+            foreach (BaseElement element in _taskManager.Current)
             {
                 ElementListItem item = new ElementListItem(element);
                 item.Text = element.Name;
@@ -106,7 +95,7 @@ namespace InteractiveLearningTutor
             //review: сделайте без if, вспомните ООП))
             if (clickedElement is Category)
             {
-                _currentCategory = (Category)clickedElement;
+                _taskManager.Current = (Category)clickedElement;
                 DisplayCurrentCategory();
             }
             else if (clickedElement is LearningTask)
@@ -120,45 +109,16 @@ namespace InteractiveLearningTutor
             }
         }
 
-        private void LoadFromFile()
-        {
-            try
-            {
-                byte[] fileData = File.ReadAllBytes(DataFileName);
-                string data = Encoding.Unicode.GetString(fileData);
-                _currentCategory = Serializer.Deserialize(data);
-                _networkHelper.UpdateDataBase(_currentCategory);
-                DisplayCurrentCategory();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-            }
-            
-        }
-
-        private void SaveToFile()
-        {
-            Category cat = _currentCategory;
-            while (cat.ParentCategory != null)
-                cat = cat.ParentCategory;
-
-            _networkHelper.UpdateDataBase(cat);
-
-            string ser = Serializer.Serialize(cat);
-            File.WriteAllBytes(DataFileName, Encoding.Unicode.GetBytes(ser));
-        }
-
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            LoadFromFile();
+            _taskManager.Refresh();
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-            if (_currentCategory.ParentCategory != null)
+            if (_taskManager.Current.ParentCategory != null)
             {
-                _currentCategory = _currentCategory.ParentCategory;
+                _taskManager.Current = _taskManager.Current.ParentCategory;
                 DisplayCurrentCategory();
             }
         }
@@ -185,14 +145,15 @@ namespace InteractiveLearningTutor
 
                 DisplayCurrentCategory();
 
-                SaveToFile();
+                _taskManager.SaveToFile();
             }
         }
 
         private void AddCategoryButton_Click(object sender, EventArgs e)
         {
             Category nCat = new Category() { Name = "New category", Description = "N/A", Thumbnail = null };
-            _currentCategory.Add(nCat);
+
+            _taskManager.Current.Add(nCat);
 
             DisplayCurrentCategory();
 
@@ -202,7 +163,7 @@ namespace InteractiveLearningTutor
             categoryCollectionList.SelectedIndices.Add(categoryCollectionList.Items.Count - 1);
             categoryCollectionList.FocusedItem = categoryCollectionList.Items[categoryCollectionList.Items.Count - 1];
 
-            SaveToFile();
+            _taskManager.SaveToFile();
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
@@ -219,9 +180,9 @@ namespace InteractiveLearningTutor
 
             if (result == DialogResult.Yes)
             {
-                _currentCategory.Remove(_lastSelectedElement.Element);
+                _taskManager.Current.Remove(_lastSelectedElement.Element);
                 DisplayCurrentCategory();
-                SaveToFile();
+                _taskManager.SaveToFile();
             }
         }
 

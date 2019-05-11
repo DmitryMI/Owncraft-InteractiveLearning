@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.NetworkReadTimer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.descriptionBox = new System.Windows.Forms.TextBox();
             this.backButton = new System.Windows.Forms.Button();
@@ -42,38 +41,33 @@
             this.AddTaskButton = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
+            this.NetworkReadTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-            // 
-            // NetworkReadTimer
-            // 
-            this.NetworkReadTimer.Enabled = true;
-            this.NetworkReadTimer.Interval = 1000;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(326, 62);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(489, 95);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 17);
+            this.label1.Size = new System.Drawing.Size(115, 25);
             this.label1.TabIndex = 12;
             this.label1.Text = "Description:";
             // 
             // descriptionBox
             // 
-            this.descriptionBox.Location = new System.Drawing.Point(325, 81);
-            this.descriptionBox.Margin = new System.Windows.Forms.Padding(2);
+            this.descriptionBox.Location = new System.Drawing.Point(488, 125);
             this.descriptionBox.Multiline = true;
             this.descriptionBox.Name = "descriptionBox";
-            this.descriptionBox.Size = new System.Drawing.Size(303, 33);
+            this.descriptionBox.Size = new System.Drawing.Size(452, 49);
             this.descriptionBox.TabIndex = 11;
             // 
             // backButton
             // 
-            this.backButton.Location = new System.Drawing.Point(9, 369);
+            this.backButton.Location = new System.Drawing.Point(14, 568);
+            this.backButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(63, 23);
+            this.backButton.Size = new System.Drawing.Size(94, 35);
             this.backButton.TabIndex = 10;
             this.backButton.Text = "Back";
             this.backButton.UseVisualStyleBackColor = true;
@@ -84,11 +78,12 @@
             this.categoryCollectionList.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.categoryCollectionList.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.categoryCollectionList.LabelWrap = false;
-            this.categoryCollectionList.Location = new System.Drawing.Point(12, 28);
+            this.categoryCollectionList.Location = new System.Drawing.Point(18, 43);
+            this.categoryCollectionList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.categoryCollectionList.MultiSelect = false;
             this.categoryCollectionList.Name = "categoryCollectionList";
             this.categoryCollectionList.ShowItemToolTips = true;
-            this.categoryCollectionList.Size = new System.Drawing.Size(309, 338);
+            this.categoryCollectionList.Size = new System.Drawing.Size(462, 518);
             this.categoryCollectionList.TabIndex = 9;
             this.categoryCollectionList.UseCompatibleStateImageBehavior = false;
             this.categoryCollectionList.View = System.Windows.Forms.View.List;
@@ -97,9 +92,10 @@
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(77, 369);
+            this.refreshButton.Location = new System.Drawing.Point(116, 568);
+            this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.refreshButton.Name = "refreshButton";
-            this.refreshButton.Size = new System.Drawing.Size(63, 23);
+            this.refreshButton.Size = new System.Drawing.Size(94, 35);
             this.refreshButton.TabIndex = 8;
             this.refreshButton.Text = "Refresh";
             this.refreshButton.UseVisualStyleBackColor = true;
@@ -109,9 +105,10 @@
             // 
             this.CurrentCategoryLabel.AutoSize = true;
             this.CurrentCategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.CurrentCategoryLabel.Location = new System.Drawing.Point(9, 5);
+            this.CurrentCategoryLabel.Location = new System.Drawing.Point(14, 8);
+            this.CurrentCategoryLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CurrentCategoryLabel.Name = "CurrentCategoryLabel";
-            this.CurrentCategoryLabel.Size = new System.Drawing.Size(154, 20);
+            this.CurrentCategoryLabel.Size = new System.Drawing.Size(236, 29);
             this.CurrentCategoryLabel.TabIndex = 7;
             this.CurrentCategoryLabel.Text = "Available categories:";
             // 
@@ -119,27 +116,26 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(326, 6);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(489, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 17);
+            this.label2.Size = new System.Drawing.Size(152, 25);
             this.label2.TabIndex = 14;
             this.label2.Text = "Category name:";
             // 
             // ElementNameBox
             // 
-            this.ElementNameBox.Location = new System.Drawing.Point(325, 28);
-            this.ElementNameBox.Margin = new System.Windows.Forms.Padding(2);
+            this.ElementNameBox.Location = new System.Drawing.Point(488, 43);
             this.ElementNameBox.Multiline = true;
             this.ElementNameBox.Name = "ElementNameBox";
-            this.ElementNameBox.Size = new System.Drawing.Size(303, 32);
+            this.ElementNameBox.Size = new System.Drawing.Size(452, 47);
             this.ElementNameBox.TabIndex = 13;
             // 
             // AddCategoryButton
             // 
-            this.AddCategoryButton.Location = new System.Drawing.Point(665, 28);
+            this.AddCategoryButton.Location = new System.Drawing.Point(998, 43);
+            this.AddCategoryButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AddCategoryButton.Name = "AddCategoryButton";
-            this.AddCategoryButton.Size = new System.Drawing.Size(114, 23);
+            this.AddCategoryButton.Size = new System.Drawing.Size(171, 35);
             this.AddCategoryButton.TabIndex = 15;
             this.AddCategoryButton.Text = "Add category";
             this.AddCategoryButton.UseVisualStyleBackColor = true;
@@ -147,18 +143,20 @@
             // 
             // AddTaskButton
             // 
-            this.AddTaskButton.Location = new System.Drawing.Point(665, 57);
+            this.AddTaskButton.Location = new System.Drawing.Point(998, 88);
+            this.AddTaskButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AddTaskButton.Name = "AddTaskButton";
-            this.AddTaskButton.Size = new System.Drawing.Size(114, 23);
+            this.AddTaskButton.Size = new System.Drawing.Size(171, 35);
             this.AddTaskButton.TabIndex = 16;
             this.AddTaskButton.Text = "Add task";
             this.AddTaskButton.UseVisualStyleBackColor = true;
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(325, 119);
+            this.SaveButton.Location = new System.Drawing.Point(488, 183);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.SaveButton.Name = "SaveButton";
-            this.SaveButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveButton.Size = new System.Drawing.Size(112, 35);
             this.SaveButton.TabIndex = 17;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
@@ -166,19 +164,25 @@
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(665, 86);
+            this.DeleteButton.Location = new System.Drawing.Point(998, 132);
+            this.DeleteButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(114, 23);
+            this.DeleteButton.Size = new System.Drawing.Size(171, 35);
             this.DeleteButton.TabIndex = 18;
             this.DeleteButton.Text = "Delete";
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
+            // NetworkReadTimer
+            // 
+            this.NetworkReadTimer.Enabled = true;
+            this.NetworkReadTimer.Interval = 1000;
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 411);
+            this.ClientSize = new System.Drawing.Size(1186, 632);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.AddTaskButton);
@@ -191,6 +195,7 @@
             this.Controls.Add(this.categoryCollectionList);
             this.Controls.Add(this.refreshButton);
             this.Controls.Add(this.CurrentCategoryLabel);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.Text = "Turor\'s office";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
@@ -201,8 +206,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Timer NetworkReadTimer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox descriptionBox;
         private System.Windows.Forms.Button backButton;
@@ -215,6 +218,7 @@
         private System.Windows.Forms.Button AddTaskButton;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Timer NetworkReadTimer;
     }
 }
 
