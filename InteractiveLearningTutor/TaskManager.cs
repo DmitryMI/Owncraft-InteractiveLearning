@@ -17,6 +17,9 @@ namespace InteractiveLearningTutor
 
         public Category Current { get => _current; set => _current = value; }
 
+
+        public Category Root => _root;
+
         public void Init()
         {
             if (!File.Exists(DataFileName))

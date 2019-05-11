@@ -22,7 +22,7 @@ namespace InteractiveLearningTutor
         private ElementListItem _lastSelectedElement;
 
         private TutorNetworkHelper _networkHelper;
-        private TaskManager _taskManager = new TaskManager();
+        private TaskManager _taskManager;
 
         public MainForm()
         {
@@ -38,8 +38,11 @@ namespace InteractiveLearningTutor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if(_taskManager == null)            
+                _taskManager = new TaskManager();            
+
             if(_networkHelper == null)
-                _networkHelper = new TutorNetworkHelper();
+                _networkHelper = new TutorNetworkHelper(_taskManager);
 
             _networkHelper.StartListening();
 

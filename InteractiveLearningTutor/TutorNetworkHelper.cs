@@ -14,19 +14,16 @@ namespace InteractiveLearningTutor
     class TutorNetworkHelper
     {
         private Timer _timer;
-        private Category _root;
+        private TaskManager _taskManager;
 
-        public TutorNetworkHelper()
+        public TutorNetworkHelper(TaskManager manager)
         {
+            _taskManager = manager;
+
             _timer = new Timer();
             _timer.Interval = 1000;
             _timer.Tick += NetworkReadTimer_Tick;
             _timer.Start();
-        }
-
-        public void UpdateDataBase(Category root)
-        {
-            _root = root;
         }
 
         public void StartListening()
@@ -40,17 +37,22 @@ namespace InteractiveLearningTutor
         }
 
         private void NetworkReadTimer_Tick(object sender, EventArgs e)
-        {
+        {          
+
             NetworkHelper net = NetworkHelper.GetInstance();
 
             if (net.PackageQueueCount() > 0)
             {
+                Debug.WriteLine($"Checking net queue. {net.PackageQueueCount()} commands received");
                 NetPackage package = net.PeekPackage();
                 ProcessNetworkCommand(package.NetCommand, package.Sender);
             }
+            else
+            {
+                Debug.WriteLine("Checking net queue. No commands received");
+            }
         }
 
-        //review: MainWindow не должен заниматься сетевыми подключениями
         private void ProcessNetworkCommand(NetCommand cmd, IPAddress sender)
         {
             if (cmd.CmdType == NetCommand.CommandType.SeekServer)
@@ -66,7 +68,7 @@ namespace InteractiveLearningTutor
                 NetworkHelper.GetInstance().PopPackage();
                 //Category root = PrebuiltTaskCreator.GetDebugTree();
 
-                string serialized = Serializer.Serialize(_root);
+                string serialized = Serializer.Serialize(_taskManager.Root);
 
                 NetCommand response = new NetCommand(NetCommand.TaskListResponseHeader, serialized);
                 NetworkHelper.GetInstance().SendCommand(response, sender);

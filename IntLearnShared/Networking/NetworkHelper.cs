@@ -106,9 +106,6 @@ namespace IntLearnShared.Networking
 
         public void SendCommandMulticast(NetCommand command)
         {
-            // Not actually multicast, lol. =(
-
-            // Get all subnet's IPs and send one package to all of them.
             IPAddress localIp = GetSelfIp();
             string strIp = localIp.ToString();
             int dotIndex = strIp.LastIndexOf('.');
@@ -145,8 +142,6 @@ namespace IntLearnShared.Networking
 
         private void ListenerThread()
         {
-
-
             _receivingUdpClient.ExclusiveAddressUse = false;
             _receivingUdpClient.Connect(new IPEndPoint(IPAddress.None, ClientPort));
 
