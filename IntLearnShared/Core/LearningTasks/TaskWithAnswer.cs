@@ -58,16 +58,20 @@ namespace IntLearnShared.Core.LearningTasks
             base.DeserializeFromXml(xmlData);
             XmlElement taskText = (XmlElement)xmlData.GetElementsByTagName("TaskText")[0];
 
-            foreach (XmlElement child in taskText)
+            foreach (var child in taskText)
             {
-                if (child.Name == "TaskText")
+                XmlElement element = child as XmlElement;
+                if(element == null)
+                    continue;
+                
+                if (element.Name == "TaskText")
                 {
-                    TaskText = child.InnerText;
+                    TaskText = element.InnerText;
                 }
 
-                if (child.Name == "TaskAnswer")
+                if (element.Name == "TaskAnswer")
                 {
-                    CorrectAnswer = child.InnerText;
+                    CorrectAnswer = element.InnerText;
                 }
             }
             // TODO Picture!
