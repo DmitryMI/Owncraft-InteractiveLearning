@@ -63,7 +63,7 @@
             this.SimpleTaskTab.Padding = new System.Windows.Forms.Padding(3);
             this.SimpleTaskTab.Size = new System.Drawing.Size(637, 355);
             this.SimpleTaskTab.TabIndex = 0;
-            this.SimpleTaskTab.Text = "Simple";
+            this.SimpleTaskTab.Text = "Задача с фикс. ответом";
             this.SimpleTaskTab.UseVisualStyleBackColor = true;
             // 
             // label3
