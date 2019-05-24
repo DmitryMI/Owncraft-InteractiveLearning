@@ -121,5 +121,12 @@ namespace InteractiveLearning.UI
             ElementListItem item = (ElementListItem)categoryCollectionList.SelectedItems[0];
             descriptionBox.Text = item.Element.Description;
         }
+
+        private void Help_Click(object sender, EventArgs e)
+        {
+            HelpForm helpForm = new HelpForm();
+
+            helpForm.ShowDialog();
+        }
     }
 }
