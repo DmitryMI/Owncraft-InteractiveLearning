@@ -58,7 +58,7 @@
             // descriptionBox
             // 
             this.descriptionBox.Location = new System.Drawing.Point(325, 81);
-            this.descriptionBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.descriptionBox.Margin = new System.Windows.Forms.Padding(2);
             this.descriptionBox.Multiline = true;
             this.descriptionBox.Name = "descriptionBox";
             this.descriptionBox.Size = new System.Drawing.Size(303, 33);
@@ -117,14 +117,14 @@
             this.label2.Location = new System.Drawing.Point(326, 6);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 17);
+            this.label2.Size = new System.Drawing.Size(102, 17);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Category name:";
+            this.label2.Text = "Element name:";
             // 
             // ElementNameBox
             // 
             this.ElementNameBox.Location = new System.Drawing.Point(325, 28);
-            this.ElementNameBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ElementNameBox.Margin = new System.Windows.Forms.Padding(2);
             this.ElementNameBox.Multiline = true;
             this.ElementNameBox.Name = "ElementNameBox";
             this.ElementNameBox.Size = new System.Drawing.Size(303, 32);
