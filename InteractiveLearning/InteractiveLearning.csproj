@@ -46,8 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelpProviding\HelpTextProvider.cs" />
+    <Compile Include="HelpProviding\TextPair.cs" />
     <Compile Include="NetworkInteraction\PlannedAction.cs" />
     <Compile Include="UI\ElementListItem.cs" />
+    <Compile Include="UI\HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\HelpForm.Designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndexedItem.cs" />
     <Compile Include="UI\LearningTaskDisplay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +78,9 @@
     <Compile Include="UI\TestSelectionForm.Designer.cs">
       <DependentUpon>TestSelectionForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\LearningTaskDisplay.resx">
       <DependentUpon>LearningTaskDisplay.cs</DependentUpon>
     </EmbeddedResource>

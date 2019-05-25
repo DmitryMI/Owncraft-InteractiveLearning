@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using InteractiveLearningTutor.TaskCostructors;
 using IntLearnShared.Core;
 using IntLearnShared.Core.LearningTasks;
 using IntLearnShared.Networking;
@@ -191,6 +192,29 @@ namespace InteractiveLearningTutor
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             _networkHelper.StopListening();
+        }
+
+        private void TaskAddedHandler(LearningTask task)
+        {
+            _taskManager.Current.Add(task);
+
+            DisplayCurrentCategory();
+
+            categoryCollectionList.Select();
+
+            categoryCollectionList.SelectedItems.Clear();
+            categoryCollectionList.SelectedIndices.Add(categoryCollectionList.Items.Count - 1);
+            categoryCollectionList.FocusedItem = categoryCollectionList.Items[categoryCollectionList.Items.Count - 1];
+
+            _taskManager.SaveToFile();
+        }
+
+        private void AddTaskButton_Click(object sender, EventArgs e)
+        {
+            TaskConstructorForm constructor = new TaskConstructorForm();
+            constructor.RequestTaskConstruction(TaskAddedHandler);
+
+            constructor.ShowDialog();
         }
     }
 }
