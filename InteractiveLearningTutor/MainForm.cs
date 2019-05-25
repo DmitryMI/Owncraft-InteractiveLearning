@@ -21,7 +21,7 @@ namespace InteractiveLearningTutor
     {        
         private ElementListItem _lastSelectedElement;
 
-        private TutorNetworkHelper _networkHelper;
+        private TutorNetworker _networkHelper;
         private TaskManager _taskManager;
 
         public MainForm()
@@ -42,7 +42,7 @@ namespace InteractiveLearningTutor
                 _taskManager = new TaskManager();            
 
             if(_networkHelper == null)
-                _networkHelper = new TutorNetworkHelper(_taskManager);
+                _networkHelper = new TutorNetworker(_taskManager);
 
             _networkHelper.StartListening();
 
@@ -95,7 +95,6 @@ namespace InteractiveLearningTutor
 
         private void ProcessUserChoice(BaseElement clickedElement)
         {
-            //review: сделайте без if, вспомните ООП))
             if (clickedElement is Category)
             {
                 _taskManager.Current = (Category)clickedElement;
@@ -176,7 +175,7 @@ namespace InteractiveLearningTutor
 
             BaseElement element = _lastSelectedElement.Element;
 
-
+            // язык ui должен быть один
             DialogResult result = MessageBox.Show("Deletion of a category removes all sub-items. Are you sure?",
                 $"Deletion of {element.Name}",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
