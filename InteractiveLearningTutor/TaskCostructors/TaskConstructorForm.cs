@@ -25,13 +25,17 @@ namespace InteractiveLearningTutor.TaskCostructors
 
         }
 
-        private LearningTask CreateSimpleTask(string title, string text, string answer)
+        private LearningTask CreateSimpleTask(string title, string text)
         {
+            if (title.Length == 0 || text.Length == 0)
+            {
+                MessageBox.Show("Все поля должны быть заполнены.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
             TaskWithAnswer task = new TaskWithAnswer();
-            task.CorrectAnswer = answer;
             task.TaskText = text;
             task.Name = title;
-            
 
             return task;
         }
@@ -49,14 +53,16 @@ namespace InteractiveLearningTutor.TaskCostructors
             {
                 string title = simpleNameBox.Text;
                 string text = simpleTextBox.Text;
-                string answer = simpleAnswerBox.Text;
 
-                task = CreateSimpleTask(title, text, answer);
+                task = CreateSimpleTask(title, text);
             }
 
-            _callback?.Invoke(task);
+            if (task != null)
+            {
+                _callback?.Invoke(task);
 
-            Close();
+                Close();
+            }
         }
     }
 }

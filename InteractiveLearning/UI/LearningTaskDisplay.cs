@@ -31,7 +31,7 @@ namespace InteractiveLearning.UI
         void LoadTaskData()
         {
             TaskNameLabel.Text = _task.Name;
-            DescriptionBox.Text = _task.TaskText;
+            DescriptionBox.Text = _task.RenderTaskDescription();
             PictureBox.Image = _task.Picture;
             RandomizeButton.Enabled = _task.IsRandomizable;
         }
@@ -43,15 +43,22 @@ namespace InteractiveLearning.UI
 
         private void CheckButton_Click(object sender, EventArgs e)
         {
-            if (_task.CheckAnswer(AnswerBox.Text))
+            try
             {
-                MessageBox.Show("Это правильный ответ!");
+                if (_task.CheckAnswer(AnswerBox.Text))
+                {
+                    MessageBox.Show("Это правильный ответ!");
+                }
+                else
+                {
+                    MessageBox.Show("Неверно! Попробуйте еще раз.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Неверно! Попробуйте еще раз.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неверный формат ввода! Попробуйте еще раз.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private void RandomizeButton_Click(object sender, EventArgs e)
@@ -61,7 +68,6 @@ namespace InteractiveLearning.UI
                 _task.Randomize();
                 LoadTaskData();
             }
-
         }
     }
 }

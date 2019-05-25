@@ -10,6 +10,11 @@ namespace IntLearnShared.Core.LearningTasks
         public string TaskText { get; set; }
         public Image Picture { get; set; }
 
+        public virtual string RenderTaskDescription()
+        {
+            return TaskText;
+        }
+
         /// <summary>
         /// If true, task's parameters or any other data is volatile can be randomized.
         /// </summary>
@@ -74,6 +79,5 @@ namespace IntLearnShared.Core.LearningTasks
 
             // TODO Picture!
         }
-
     }
 }

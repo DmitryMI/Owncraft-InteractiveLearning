@@ -32,6 +32,7 @@ namespace IntLearnShared.Core
             task1.TaskText = "Какой-то текст задачи с двумя звёздочками";
             task1.Picture = null;
 
+            
             // Связываем задачу (объект learningTask) с категорией. В категории лежит данная задача.
             cat1.Add(task1);
 
@@ -99,7 +100,25 @@ namespace IntLearnShared.Core
                 Picture = null
             };
 
+            TaskWithAnswer task2 = new TaskWithAnswer();
+            task2.Name = "Токарь и ученик";
+            task2.Description = "Задача на работу";
+            task2.TaskText = "Токарь и его ученик вместе за смену выточили {C:D, V:130, деталей}. "
+                + "Сколько деталей ({Q:T, D - D/(Ts*Tk+1)}) выточил токарь и сколько деталей ({Q:S, D/(Ts*Tk+1)}) выточил ученик "
+                + ", если часть деталей, которую выточил токарь, уменьшенная в {C:Tk, V:3, раза}"
+                + ", была равна деталям, которые выточил ученик, увеличенным в {C:Ts, V:4, раза}?";
+            task2.Picture = null;
+
+            TaskWithAnswer task3 = new TaskWithAnswer();
+            task3.Name = "Умножение";
+            task3.Description = "Задача на умножение";
+            task3.TaskText = "Пусть {C:A, R:10:100} и {C:B, R:0:30}. Найти {Q:произведение, A*B} A и B.";
+            task3.Picture = null;
+
             cat1.Add(task1);
+            cat1.Add(task2);
+            cat1.Add(task3);
+
             cat12.Add(task12);
             cat12.Add(task13);
 

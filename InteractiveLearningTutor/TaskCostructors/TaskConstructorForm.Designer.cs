@@ -30,8 +30,6 @@
         {
             this.TabControl = new System.Windows.Forms.TabControl();
             this.SimpleTaskTab = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.simpleAnswerBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.simpleTextBox = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,8 +50,6 @@
             // 
             // SimpleTaskTab
             // 
-            this.SimpleTaskTab.Controls.Add(this.label3);
-            this.SimpleTaskTab.Controls.Add(this.simpleAnswerBox);
             this.SimpleTaskTab.Controls.Add(this.label2);
             this.SimpleTaskTab.Controls.Add(this.simpleTextBox);
             this.SimpleTaskTab.Controls.Add(this.label1);
@@ -65,22 +61,6 @@
             this.SimpleTaskTab.TabIndex = 0;
             this.SimpleTaskTab.Text = "Задача с фикс. ответом";
             this.SimpleTaskTab.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 332);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Ответ:";
-            // 
-            // simpleAnswerBox
-            // 
-            this.simpleAnswerBox.Location = new System.Drawing.Point(69, 329);
-            this.simpleAnswerBox.Name = "simpleAnswerBox";
-            this.simpleAnswerBox.Size = new System.Drawing.Size(562, 20);
-            this.simpleAnswerBox.TabIndex = 4;
             // 
             // label2
             // 
@@ -95,7 +75,7 @@
             // 
             this.simpleTextBox.Location = new System.Drawing.Point(69, 40);
             this.simpleTextBox.Name = "simpleTextBox";
-            this.simpleTextBox.Size = new System.Drawing.Size(562, 268);
+            this.simpleTextBox.Size = new System.Drawing.Size(562, 299);
             this.simpleTextBox.TabIndex = 2;
             this.simpleTextBox.Text = "";
             // 
@@ -147,8 +127,6 @@
         private System.Windows.Forms.TabControl TabControl;
         private System.Windows.Forms.TabPage SimpleTaskTab;
         private System.Windows.Forms.Button FinishButton;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox simpleAnswerBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RichTextBox simpleTextBox;
         private System.Windows.Forms.Label label1;
