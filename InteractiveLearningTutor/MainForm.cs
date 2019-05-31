@@ -30,12 +30,6 @@ namespace InteractiveLearningTutor
             InitializeComponent();
         }
 
-        private void FirstLaunch()
-        {
-            _taskManager.Init();
-
-            DisplayCurrentCategory();
-        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -47,7 +41,9 @@ namespace InteractiveLearningTutor
 
             _networkHelper.StartListening();
 
-            FirstLaunch();            
+            _taskManager.Init();
+
+            DisplayCurrentCategory();
         }
         
 
