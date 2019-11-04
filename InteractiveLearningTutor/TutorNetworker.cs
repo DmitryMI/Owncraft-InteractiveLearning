@@ -11,12 +11,12 @@ using IntLearnShared.Networking;
 
 namespace InteractiveLearningTutor
 {
-    class TutorNetworkHelper
+    class TutorNetworker
     {
         private Timer _timer;
         private TaskManager _taskManager;
 
-        public TutorNetworkHelper(TaskManager manager)
+        public TutorNetworker(TaskManager manager)
         {
             _taskManager = manager;
 
