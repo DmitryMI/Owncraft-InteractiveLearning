@@ -108,7 +108,9 @@ namespace InteractiveLearningTutor
 
                 Hide();
                 // TODO Open task editor
-                MessageBox.Show("TASK EDITOR PLACEHOLDER");
+                TaskConstructorForm constructorForm = new TaskConstructorForm();
+                constructorForm.ShowDialog();
+                //MessageBox.Show("TASK EDITOR PLACEHOLDER");
                 Show();
             }
         }

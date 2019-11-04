@@ -51,14 +51,14 @@
             this.label1.Location = new System.Drawing.Point(326, 62);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 17);
+            this.label1.Size = new System.Drawing.Size(78, 17);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Description:";
+            this.label1.Text = "Описание:";
             // 
             // descriptionBox
             // 
             this.descriptionBox.Location = new System.Drawing.Point(325, 81);
-            this.descriptionBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.descriptionBox.Margin = new System.Windows.Forms.Padding(2);
             this.descriptionBox.Multiline = true;
             this.descriptionBox.Name = "descriptionBox";
             this.descriptionBox.Size = new System.Drawing.Size(303, 33);
@@ -70,7 +70,7 @@
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(63, 23);
             this.backButton.TabIndex = 10;
-            this.backButton.Text = "Back";
+            this.backButton.Text = "Назад";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
@@ -78,6 +78,7 @@
             // 
             this.categoryCollectionList.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.categoryCollectionList.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.categoryCollectionList.HideSelection = false;
             this.categoryCollectionList.LabelWrap = false;
             this.categoryCollectionList.Location = new System.Drawing.Point(12, 28);
             this.categoryCollectionList.MultiSelect = false;
@@ -96,7 +97,7 @@
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(63, 23);
             this.refreshButton.TabIndex = 8;
-            this.refreshButton.Text = "Refresh";
+            this.refreshButton.Text = "Обновить";
             this.refreshButton.UseVisualStyleBackColor = true;
             this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
             // 
@@ -106,9 +107,9 @@
             this.CurrentCategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CurrentCategoryLabel.Location = new System.Drawing.Point(9, 5);
             this.CurrentCategoryLabel.Name = "CurrentCategoryLabel";
-            this.CurrentCategoryLabel.Size = new System.Drawing.Size(154, 20);
+            this.CurrentCategoryLabel.Size = new System.Drawing.Size(149, 20);
             this.CurrentCategoryLabel.TabIndex = 7;
-            this.CurrentCategoryLabel.Text = "Available categories:";
+            this.CurrentCategoryLabel.Text = "Список категорий:";
             // 
             // label2
             // 
@@ -117,14 +118,14 @@
             this.label2.Location = new System.Drawing.Point(326, 6);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 17);
+            this.label2.Size = new System.Drawing.Size(147, 17);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Category name:";
+            this.label2.Text = "Название категории:";
             // 
             // ElementNameBox
             // 
             this.ElementNameBox.Location = new System.Drawing.Point(325, 28);
-            this.ElementNameBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.ElementNameBox.Margin = new System.Windows.Forms.Padding(2);
             this.ElementNameBox.Multiline = true;
             this.ElementNameBox.Name = "ElementNameBox";
             this.ElementNameBox.Size = new System.Drawing.Size(303, 32);
@@ -132,21 +133,21 @@
             // 
             // AddCategoryButton
             // 
-            this.AddCategoryButton.Location = new System.Drawing.Point(665, 28);
+            this.AddCategoryButton.Location = new System.Drawing.Point(633, 28);
             this.AddCategoryButton.Name = "AddCategoryButton";
-            this.AddCategoryButton.Size = new System.Drawing.Size(114, 23);
+            this.AddCategoryButton.Size = new System.Drawing.Size(146, 23);
             this.AddCategoryButton.TabIndex = 15;
-            this.AddCategoryButton.Text = "Add category";
+            this.AddCategoryButton.Text = "Добавить категорию";
             this.AddCategoryButton.UseVisualStyleBackColor = true;
             this.AddCategoryButton.Click += new System.EventHandler(this.AddCategoryButton_Click);
             // 
             // AddTaskButton
             // 
-            this.AddTaskButton.Location = new System.Drawing.Point(665, 57);
+            this.AddTaskButton.Location = new System.Drawing.Point(633, 57);
             this.AddTaskButton.Name = "AddTaskButton";
-            this.AddTaskButton.Size = new System.Drawing.Size(114, 23);
+            this.AddTaskButton.Size = new System.Drawing.Size(146, 23);
             this.AddTaskButton.TabIndex = 16;
-            this.AddTaskButton.Text = "Add task";
+            this.AddTaskButton.Text = "Добавить задачу";
             this.AddTaskButton.UseVisualStyleBackColor = true;
             this.AddTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
             // 
@@ -156,17 +157,17 @@
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 17;
-            this.SaveButton.Text = "Save";
+            this.SaveButton.Text = "Сохранить";
             this.SaveButton.UseVisualStyleBackColor = true;
             this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // DeleteButton
             // 
-            this.DeleteButton.Location = new System.Drawing.Point(665, 86);
+            this.DeleteButton.Location = new System.Drawing.Point(633, 86);
             this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(114, 23);
+            this.DeleteButton.Size = new System.Drawing.Size(146, 23);
             this.DeleteButton.TabIndex = 18;
-            this.DeleteButton.Text = "Delete";
+            this.DeleteButton.Text = "Удалить выбранное";
             this.DeleteButton.UseVisualStyleBackColor = true;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 

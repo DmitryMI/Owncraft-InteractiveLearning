@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using InteractiveLearning.NetworkInteraction;
+using InteractiveLearning.Properties;
 using IntLearnShared.Core;
 using IntLearnShared.Core.LearningTasks;
 
@@ -32,11 +33,11 @@ namespace InteractiveLearning.UI
 
             if (_currentCategory.ParentCategory == null)
             {
-                CurrentCategoryLabel.Text = "Available categories:";
+                CurrentCategoryLabel.Text = Resources.TestSelectionForm_DisplayCurrentCategory_Available_categories_;
             }
             else
             {
-                CurrentCategoryLabel.Text = _currentCategory.Name + ":";
+                CurrentCategoryLabel.Text = _currentCategory.Name + @":";
             }
 
             foreach (BaseElement element in _currentCategory)
@@ -99,7 +100,7 @@ namespace InteractiveLearning.UI
 
             DisplayCurrentCategory();
 
-            MessageBox.Show("List refreshed!");
+            MessageBox.Show(Resources.TestSelectionForm_OnNetworkerReadingFinish_List_refreshed_);
         }
 
         private void OnNetworkerReadingError(string msg)
