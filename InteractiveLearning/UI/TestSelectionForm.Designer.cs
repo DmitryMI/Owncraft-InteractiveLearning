@@ -43,9 +43,9 @@
             this.CurrentCategoryLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.CurrentCategoryLabel.Location = new System.Drawing.Point(9, 9);
             this.CurrentCategoryLabel.Name = "CurrentCategoryLabel";
-            this.CurrentCategoryLabel.Size = new System.Drawing.Size(154, 20);
+            this.CurrentCategoryLabel.Size = new System.Drawing.Size(178, 20);
             this.CurrentCategoryLabel.TabIndex = 0;
-            this.CurrentCategoryLabel.Text = "Available categories:";
+            this.CurrentCategoryLabel.Text = "Доступные категории:";
             // 
             // refreshButton
             // 
@@ -61,6 +61,7 @@
             // 
             this.categoryCollectionList.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.categoryCollectionList.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.categoryCollectionList.HideSelection = false;
             this.categoryCollectionList.LabelWrap = false;
             this.categoryCollectionList.Location = new System.Drawing.Point(12, 32);
             this.categoryCollectionList.MultiSelect = false;
@@ -79,14 +80,14 @@
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(63, 23);
             this.backButton.TabIndex = 4;
-            this.backButton.Text = "Back";
+            this.backButton.Text = "Назад";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // descriptionBox
             // 
             this.descriptionBox.Location = new System.Drawing.Point(325, 32);
-            this.descriptionBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.descriptionBox.Margin = new System.Windows.Forms.Padding(2);
             this.descriptionBox.Multiline = true;
             this.descriptionBox.Name = "descriptionBox";
             this.descriptionBox.ReadOnly = true;
@@ -100,9 +101,9 @@
             this.label1.Location = new System.Drawing.Point(325, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 20);
+            this.label1.Size = new System.Drawing.Size(87, 20);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Description:";
+            this.label1.Text = "Описание:";
             // 
             // Help
             // 
@@ -110,7 +111,7 @@
             this.Help.Name = "Help";
             this.Help.Size = new System.Drawing.Size(75, 23);
             this.Help.TabIndex = 7;
-            this.Help.Text = "Help";
+            this.Help.Text = "Справочник";
             this.Help.UseVisualStyleBackColor = true;
             this.Help.Click += new System.EventHandler(this.Help_Click);
             // 

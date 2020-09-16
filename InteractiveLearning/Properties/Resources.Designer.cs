@@ -61,7 +61,7 @@ namespace InteractiveLearning.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Available categories:.
+        ///   Ищет локализованную строку, похожую на Доступные категории:.
         /// </summary>
         internal static string TestSelectionForm_DisplayCurrentCategory_Available_categories_ {
             get {

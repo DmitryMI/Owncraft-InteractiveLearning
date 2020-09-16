@@ -84,7 +84,7 @@
             this.CheckButton.Name = "CheckButton";
             this.CheckButton.Size = new System.Drawing.Size(75, 26);
             this.CheckButton.TabIndex = 4;
-            this.CheckButton.Text = "Check";
+            this.CheckButton.Text = "Проверить";
             this.CheckButton.UseVisualStyleBackColor = true;
             this.CheckButton.Click += new System.EventHandler(this.CheckButton_Click);
             // 
@@ -102,9 +102,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(277, 427);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 20);
+            this.label1.Size = new System.Drawing.Size(65, 20);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Answer: ";
+            this.label1.Text = "Ответ: ";
             // 
             // RandomizeButton
             // 
